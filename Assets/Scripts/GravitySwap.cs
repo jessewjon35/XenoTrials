@@ -58,7 +58,7 @@ public class GravitySwap : MonoBehaviour
         //multiplied by -1 = -1 which is ceiling gravity
         //vice versa
 
-        if(GameObject.FindWithTag("floor") && isUpsideDown == false && isMoving == false)
+        if(isUpsideDown == false && isMoving == false)
         {
             rb.gravityScale *= -1;
 
@@ -71,7 +71,7 @@ public class GravitySwap : MonoBehaviour
             isMoving = true;
 
         }
-        else if(GameObject.FindWithTag("ceiling") && isUpsideDown == true && isMoving == false)
+        else if(isUpsideDown == true && isMoving == false)
         {
             rb.gravityScale *= -1;
 
