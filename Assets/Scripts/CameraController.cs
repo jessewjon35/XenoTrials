@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public GameObject virtualCam;
     // Start is called before the first frame update
     void Start()
     {
+        
+        
         
     }
 
@@ -14,5 +17,27 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         
+        
+        
     }
+
+    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player") && !collision.isTrigger)
+        {
+            virtualCam.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && !collision.isTrigger)
+        {
+            virtualCam.SetActive(false);
+        }
+    }
+
+
 }
