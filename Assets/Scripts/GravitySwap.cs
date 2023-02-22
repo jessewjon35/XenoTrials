@@ -38,7 +38,7 @@ public class GravitySwap : MonoBehaviour
         //new acceleration Input from mobile device
         shake = Input.acceleration;
 
-        if (shake.sqrMagnitude >= 2f && isMoving == false)
+        if (shake.sqrMagnitude >= 1.5f && isMoving == false)
         {
 
 

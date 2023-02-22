@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public Rigidbody2D rb;
+
     public GameObject enemy;
     private GameObject enemyClone;
     
@@ -25,10 +27,11 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
+        rb = enemy.GetComponent<Rigidbody2D>();
+
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        
     }
 
     // Update is called once per frame
@@ -46,6 +49,7 @@ public class Enemy : MonoBehaviour
        
         
         transform.position = Vector2.MoveTowards(transform.position, target.position, enemySpeed * Time.deltaTime);
+        
         
         
     }
