@@ -67,6 +67,10 @@ public class GravitySwap : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(playerRotation);
             rb.transform.rotation = rotation;
 
+            Vector3 Scaler = transform.localScale;
+            Scaler.x *= -1;
+            transform.localScale = Scaler;
+
             isUpsideDown = true;
             isMoving = true;
 
@@ -79,6 +83,10 @@ public class GravitySwap : MonoBehaviour
             Vector3 playerRotation = new Vector3(0, 0, 0);
             Quaternion rotation = Quaternion.Euler(playerRotation);
             rb.transform.rotation = rotation;
+
+            Vector3 Scaler = transform.localScale;
+            Scaler.x *= -1;
+            transform.localScale = Scaler;
 
             isUpsideDown = false;
             isMoving = true;

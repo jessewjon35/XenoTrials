@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
 
+    public Vector2 playerDir;
+
     public GameObject player;
     public GameObject enemy;
 
@@ -25,12 +27,14 @@ public class PlayerController : MonoBehaviour
 
     public bool isJumping;
     public bool isTouching;
+    public bool isFacingRight;
+    
 
 
 
     private void Awake()
     {
-        Input.multiTouchEnabled = false;
+        //Input.multiTouchEnabled = false;
     }
 
     // Start is called before the first frame update
@@ -43,6 +47,8 @@ public class PlayerController : MonoBehaviour
         isJumping = false;
         isTouching = false;
 
+        isFacingRight = true;
+        
 
         
         
@@ -52,12 +58,32 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+
+        if(isFacingRight == false && joystick.Horizontal <= -.2f)
+        {
+            FlipPlayer();
+        }
+        else if(isFacingRight == true && joystick.Horizontal >= .2f)
+        {
+            FlipPlayer();
+        }
         
+        if(isFacingRight == true && joystick.Horizontal >= .2f)
+        {
+            FlipPlayer();
+        }
+        else if(isFacingRight == false && joystick.Horizontal <= -.2f)
+        {
+            FlipPlayer();
+        }
+
+        PlayerMovement();
+
     }
 
     private void Update()
     {
-        PlayerMovement();
+        
         
         
         
@@ -114,21 +140,43 @@ public class PlayerController : MonoBehaviour
         {
             //move right on ground
             MovePlayer(1.0f);
+            Vector3 Scaler = transform.localScale;
+            Scaler.x *= -1;
+            transform.localScale = Scaler;
+
+            isFacingRight = true;
+            
 
         }
         else if (joystick.Horizontal <= -.2f && gravitySwap.isUpsideDown == false)
         {
             //move left on ground
             MovePlayer(-1.0f);
+            Vector3 Scaler = transform.localScale;
+            Scaler.x *= -1;
+            transform.localScale = Scaler;
+           
+            isFacingRight = false;
         }        
         else if (joystick.Horizontal >= .2f && gravitySwap.isUpsideDown == true)
         {
             //move right on ceiling
             MovePlayer(-1.0f);
+            Vector3 Scaler = transform.localScale;
+            Scaler.x *= -1;
+            transform.localScale = Scaler;
+
+            isFacingRight = true;
         }
         else if(joystick.Horizontal <= -.2f && gravitySwap.isUpsideDown == true)
         {
+            //move left on ceiling
             MovePlayer(1.0f);
+            Vector3 Scaler = transform.localScale;
+            Scaler.x *= -1;
+            transform.localScale = Scaler;
+
+            isFacingRight = false;
         }
 
 
@@ -139,6 +187,15 @@ public class PlayerController : MonoBehaviour
         rb.transform.Translate(new Vector2(horizontalMovement * movementSpeed * Time.deltaTime, 0));
 
         
+    }
+
+    public void FlipPlayer()
+    {
+        isFacingRight = !isFacingRight;
+
+        Vector3 Scaler = transform.localScale;
+        Scaler.x *= -1;
+        transform.localScale = Scaler;
     }
 
     public void Jump()
