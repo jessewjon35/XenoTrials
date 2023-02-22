@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
 
+    public Joystick joystick;
+
     private float screenWidth;
-    private float movementSpeed = 10;
+    private float movementSpeed = 7.5f;
     private float jumpForce = 14;
     private float jumpStaminaUsage = 15;
 
@@ -28,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        //Input.multiTouchEnabled = false;
+        Input.multiTouchEnabled = false;
     }
 
     // Start is called before the first frame update
@@ -64,55 +66,79 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     public void PlayerMovement()
     {
-        int i = 0;
+        /* int i = 0;
 
 
-        //loop over every touch found
-        while (i < Input.touchCount)
+         //loop over every touch found
+         while (i < Input.touchCount)
+         {
+
+
+             if (Input.GetTouch(i).position.x > screenWidth / 3 * 2 && gravitySwap.isUpsideDown == false)
+             {
+                 //move right on ground
+                 MovePlayer(1.0f);
+                 isTouching = true;
+
+             }
+
+             else if (Input.GetTouch(i).position.x < screenWidth / 3 && gravitySwap.isUpsideDown == false)
+             {
+                 //move left on ground
+                 MovePlayer(-1.0f);
+                 isTouching = true;
+
+             }
+
+             else if (Input.GetTouch(i).position.x > screenWidth / 3 * 2 && gravitySwap.isUpsideDown == true)
+             {
+                 //move right on ceiling
+                 MovePlayer(-1.0f);
+                 isTouching = true;
+
+             }
+
+             else if (Input.GetTouch(i).position.x < screenWidth / 3 && gravitySwap.isUpsideDown == true)
+             {
+                 //move left on ceiling
+                 MovePlayer(1.0f);
+                 isTouching = true;
+
+             }
+
+
+             i++;
+         }*/
+
+        if (joystick.Horizontal >= .2f && gravitySwap.isUpsideDown == false)
         {
+            //move right on ground
+            MovePlayer(1.0f);
 
-
-            if (Input.GetTouch(i).position.x > screenWidth / 3 * 2 && gravitySwap.isUpsideDown == false)
-            {
-                //move right on ground
-                MovePlayer(1.0f);
-                isTouching = true;
-                
-            }
-
-            else if (Input.GetTouch(i).position.x < screenWidth / 3 && gravitySwap.isUpsideDown == false)
-            {
-                //move left on ground
-                MovePlayer(-1.0f);
-                isTouching = true;
-
-            }
-
-            else if (Input.GetTouch(i).position.x > screenWidth / 3 * 2 && gravitySwap.isUpsideDown == true)
-            {
-                //move right on ceiling
-                MovePlayer(-1.0f);
-                isTouching = true;
-
-            }
-
-            else if (Input.GetTouch(i).position.x < screenWidth / 3 && gravitySwap.isUpsideDown == true)
-            {
-                //move left on ceiling
-                MovePlayer(1.0f);
-                isTouching = true;
-
-            }
-
-            
-            i++;
         }
+        else if (joystick.Horizontal <= -.2f && gravitySwap.isUpsideDown == false)
+        {
+            //move left on ground
+            MovePlayer(-1.0f);
+        }        
+        else if (joystick.Horizontal >= .2f && gravitySwap.isUpsideDown == true)
+        {
+            //move right on ceiling
+            MovePlayer(-1.0f);
+        }
+        else if(joystick.Horizontal <= -.2f && gravitySwap.isUpsideDown == true)
+        {
+            MovePlayer(1.0f);
+        }
+
 
     }
 
     private void MovePlayer(float horizontalMovement)
     {
         rb.transform.Translate(new Vector2(horizontalMovement * movementSpeed * Time.deltaTime, 0));
+
+        
     }
 
     public void Jump()
