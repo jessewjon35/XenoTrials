@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - ceiling
   - walls
+  - Bullet
   layers:
   - Default
   - TransparentFX

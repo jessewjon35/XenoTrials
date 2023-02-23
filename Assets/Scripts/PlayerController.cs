@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject player;
     public GameObject enemy;
+    public GameObject bulletSpawn;
 
     public Joystick joystick;
 
@@ -48,32 +49,35 @@ public class PlayerController : MonoBehaviour
         isTouching = false;
 
         isFacingRight = true;
-        
 
-        
-        
-       
+        //bulletSpawn.transform.Rotate(0f, 0f, 0f);
+
+
+
 
 
     }
     private void FixedUpdate()
     {
-
-        if(isFacingRight == false && joystick.Horizontal <= -.2f)
-        {
-            FlipPlayer();
-        }
-        else if(isFacingRight == true && joystick.Horizontal >= .2f)
-        {
-            FlipPlayer();
-        }
         
-        if(isFacingRight == true && joystick.Horizontal >= .2f)
+
+        if(isFacingRight == false && joystick.Horizontal > 0f && gravitySwap.isUpsideDown == false)
         {
             FlipPlayer();
         }
-        else if(isFacingRight == false && joystick.Horizontal <= -.2f)
+        else if(isFacingRight == true && joystick.Horizontal < 0f && gravitySwap.isUpsideDown == false)
         {
+            FlipPlayer();
+        }
+
+        if (isFacingRight == false && joystick.Horizontal > 0f && gravitySwap.isUpsideDown == true)
+        {
+            
+            FlipPlayer();
+        }
+        else if (isFacingRight == true && joystick.Horizontal < 0f && gravitySwap.isUpsideDown == true)
+        {
+            
             FlipPlayer();
         }
 
@@ -136,45 +140,43 @@ public class PlayerController : MonoBehaviour
              i++;
          }*/
 
-        if (joystick.Horizontal >= .2f && gravitySwap.isUpsideDown == false)
+        if (joystick.Horizontal > 0f && gravitySwap.isUpsideDown == false)
         {
+            //FlipPlayer();
             //move right on ground
             MovePlayer(1.0f);
-            Vector3 Scaler = transform.localScale;
-            Scaler.x *= -1;
-            transform.localScale = Scaler;
+            
 
             isFacingRight = true;
             
 
         }
-        else if (joystick.Horizontal <= -.2f && gravitySwap.isUpsideDown == false)
+        else if (joystick.Horizontal < 0f && gravitySwap.isUpsideDown == false)
         {
+            
             //move left on ground
             MovePlayer(-1.0f);
-            Vector3 Scaler = transform.localScale;
-            Scaler.x *= -1;
-            transform.localScale = Scaler;
-           
+            //FlipPlayer();
+            
+
+
             isFacingRight = false;
         }        
-        else if (joystick.Horizontal >= .2f && gravitySwap.isUpsideDown == true)
+        else if (joystick.Horizontal > 0f && gravitySwap.isUpsideDown == true)
         {
+            //FlipPlayer();
             //move right on ceiling
-            MovePlayer(-1.0f);
-            Vector3 Scaler = transform.localScale;
-            Scaler.x *= -1;
-            transform.localScale = Scaler;
+            MovePlayer(1.0f);
+            
 
             isFacingRight = true;
         }
-        else if(joystick.Horizontal <= -.2f && gravitySwap.isUpsideDown == true)
+        else if(joystick.Horizontal < 0f && gravitySwap.isUpsideDown == true)
         {
             //move left on ceiling
-            MovePlayer(1.0f);
-            Vector3 Scaler = transform.localScale;
-            Scaler.x *= -1;
-            transform.localScale = Scaler;
+            MovePlayer(-1.0f);
+            //FlipPlayer();
+
 
             isFacingRight = false;
         }
@@ -192,10 +194,13 @@ public class PlayerController : MonoBehaviour
     public void FlipPlayer()
     {
         isFacingRight = !isFacingRight;
+        bulletSpawn.transform.Rotate(0f, 180f, 0f);
+        
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
 
-        Vector3 Scaler = transform.localScale;
-        Scaler.x *= -1;
-        transform.localScale = Scaler;
+        
     }
 
     public void Jump()
