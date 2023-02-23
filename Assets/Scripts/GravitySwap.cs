@@ -5,6 +5,8 @@ using UnityEngine;
 public class GravitySwap : MonoBehaviour
 {
     public Rigidbody2D rb;
+    private PlayerController playerController;
+    
 
     Vector3 shake;
     private bool isMoving;
@@ -41,11 +43,11 @@ public class GravitySwap : MonoBehaviour
         if (shake.sqrMagnitude >= 1.5f && isMoving == false)
         {
 
-
+            
 
             GravityChange();
 
-
+            
 
 
         }
@@ -62,14 +64,14 @@ public class GravitySwap : MonoBehaviour
         {
             rb.gravityScale *= -1;
 
+            
+
             //player flip from bottom to top
-            Vector3 playerRotation = new Vector3(0, 0, -180f);
+            Vector3 playerRotation = new Vector3(0, 180f, 180f);
             Quaternion rotation = Quaternion.Euler(playerRotation);
             rb.transform.rotation = rotation;
 
-            Vector3 Scaler = transform.localScale;
-            Scaler.x *= -1;
-            transform.localScale = Scaler;
+            
 
             isUpsideDown = true;
             isMoving = true;
@@ -79,19 +81,20 @@ public class GravitySwap : MonoBehaviour
         {
             rb.gravityScale *= -1;
 
+            
+
             //player flip top to bottom
             Vector3 playerRotation = new Vector3(0, 0, 0);
             Quaternion rotation = Quaternion.Euler(playerRotation);
             rb.transform.rotation = rotation;
 
-            Vector3 Scaler = transform.localScale;
-            Scaler.x *= -1;
-            transform.localScale = Scaler;
+            
 
             isUpsideDown = false;
             isMoving = true;
 
         }
+        
 
         /*if (rb.transform.position.y <= -3.7 && gravityChanged == false && isMoving == false)
         {
