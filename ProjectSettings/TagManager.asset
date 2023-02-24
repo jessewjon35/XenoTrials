@@ -9,6 +9,7 @@ TagManager:
   - ceiling
   - walls
   - Bullet
+  - Portal
   layers:
   - Default
   - TransparentFX

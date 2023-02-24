@@ -14,8 +14,8 @@ public class GravitySwap : MonoBehaviour
     private bool isGrounded;
     public bool isUpsideDown;
 
-    private float shakeWaitTime = .7f;
-    private float minWaitTime = 0f;
+    //private float shakeWaitTime = .7f;
+    //private float minWaitTime = 0f;
     private float gravityStamina = 30f;
 
     
