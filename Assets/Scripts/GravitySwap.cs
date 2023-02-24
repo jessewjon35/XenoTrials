@@ -5,15 +5,18 @@ using UnityEngine;
 public class GravitySwap : MonoBehaviour
 {
     public Rigidbody2D rb;
-    private PlayerController playerController;
+
+    [SerializeField]
+    private Player player;
     
 
     Vector3 shake;
-    private bool isMoving;
+    private bool isGrounded;
     public bool isUpsideDown;
 
     private float shakeWaitTime = .7f;
     private float minWaitTime = 0f;
+    private float gravityStamina = 30f;
 
     
 
@@ -21,26 +24,33 @@ public class GravitySwap : MonoBehaviour
     void Start()
     {
 
-        isMoving = false;        
+        isGrounded = true;        
         isUpsideDown = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        ShakeDetection();
 
-        TimeBetweenShakes();
+        
+        
     }
 
-    
+    private void FixedUpdate()
+    {
+        ShakeDetection();
+
+        //TimeBetweenShakes();
+    }
+
+
 
     public void ShakeDetection()
     {
         //new acceleration Input from mobile device
         shake = Input.acceleration;
 
-        if (shake.sqrMagnitude >= 1.5f && isMoving == false)
+        if (shake.sqrMagnitude >= 1.5f && isGrounded == true)
         {
 
             
@@ -60,38 +70,38 @@ public class GravitySwap : MonoBehaviour
         //multiplied by -1 = -1 which is ceiling gravity
         //vice versa
 
-        if(isUpsideDown == false && isMoving == false)
+        if (isUpsideDown == false && isGrounded == true && player.currentStamina >= gravityStamina)
         {
             rb.gravityScale *= -1;
 
-            
+            player.currentStamina -= 20f;
 
             //player flip from bottom to top
             Vector3 playerRotation = new Vector3(0, 180f, 180f);
             Quaternion rotation = Quaternion.Euler(playerRotation);
             rb.transform.rotation = rotation;
 
-            
+            Time.timeScale = .5f;
 
             isUpsideDown = true;
-            isMoving = true;
+            isGrounded = false;
 
         }
-        else if(isUpsideDown == true && isMoving == false)
+        else if(isUpsideDown == true && isGrounded == true && player.currentStamina >= gravityStamina)
         {
             rb.gravityScale *= -1;
 
-            
+            player.currentStamina -= gravityStamina;
 
             //player flip top to bottom
             Vector3 playerRotation = new Vector3(0, 0, 0);
             Quaternion rotation = Quaternion.Euler(playerRotation);
             rb.transform.rotation = rotation;
 
-            
+            Time.timeScale = .5f;
 
             isUpsideDown = false;
-            isMoving = true;
+            isGrounded = false;
 
         }
         
@@ -128,19 +138,22 @@ public class GravitySwap : MonoBehaviour
     }   
     
 
-    public void TimeBetweenShakes()
+    /*public void TimeBetweenShakes()
     {
-        if (isMoving == true)
+        if (isGrounded == false)
         {
             minWaitTime += Time.deltaTime;
             Debug.Log(minWaitTime + Time.deltaTime);
+
+            Time.timeScale = .5f;
         }
 
         if (minWaitTime >= shakeWaitTime)
         {
             ResetTimer();
-            isMoving = false;
+            isGrounded = true;
 
+            Time.timeScale = 1f;
         }
 
 
@@ -152,7 +165,17 @@ public class GravitySwap : MonoBehaviour
         minWaitTime = 0f;
         
         Debug.Log("Timer Reset");
+    }*/
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "floor")
+        {
+            isGrounded = true;
+            Time.timeScale = 1f;
+
+        }
     }
 
-   
+
 }
