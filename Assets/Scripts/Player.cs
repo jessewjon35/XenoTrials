@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
         playerUi.SetMaxHealth();
         playerUi.SetMaxStamina();
 
+        GetComponent<BoxCollider2D>();
+
     }
 
     private void FixedUpdate()
