@@ -7,10 +7,11 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D rb;
 
     public GameObject enemy;
-    private GameObject enemyClone;
-    
+    //private GameObject enemyClone;
+    public GameObject currency;
 
     private Transform target;
+    
 
 
     //private int minDistance = 1;
@@ -18,6 +19,9 @@ public class Enemy : MonoBehaviour
 
     public float enemySpeed = 7;
     public float enemyCollisionDamage = 5;
+    public float dropChance = .3f;
+    public float generator;
+    
    
 
     [HideInInspector]
@@ -59,6 +63,15 @@ public class Enemy : MonoBehaviour
         
     }
 
+    public void DropRate()
+    {
+        if(Random.Range(0f,1f) <= dropChance)
+        {
+            Instantiate(currency,this.transform.position, Quaternion.identity);
+        }
+        
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -75,6 +88,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             Destroy(gameObject);
+            DropRate();
         }
 
     }

@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     public float minStamina = 0f;
     public float currentStamina;
 
+    public float currentCurrency;
+    public float minCurrency = 0f;
+
     public Slider healthSlider;
     public Slider StaminaSlider;
 
@@ -33,6 +36,8 @@ public class Player : MonoBehaviour
         playerUi.SetMaxStamina();
 
         GetComponent<BoxCollider2D>();
+
+        currentCurrency = minCurrency;
 
     }
 
@@ -75,6 +80,12 @@ public class Player : MonoBehaviour
         if(currentStamina < maxStamina)
         {
             StaminaRecharge();
+        }
+
+
+        if(currentCurrency <= minCurrency)
+        {
+            currentCurrency = minCurrency;
         }
         
 
