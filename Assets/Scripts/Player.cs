@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         {
             currentHealth = maxHealth;
         } 
-        Debug.Log(currentHealth);
+        
 
 
         if (currentStamina <= minStamina)
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
         }
         
 
-        Debug.Log(currentStamina);
+        //Debug.Log(currentStamina);
         //Debug.Log(Input.acceleration);
 
     }
@@ -91,16 +91,21 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
+        
         if (collision.gameObject.tag == "Enemy")
         {
             
             currentHealth -= enemy.enemyCollisionDamage;
             playerUi.SetHealth();
 
-            
+            Debug.Log(currentHealth);
             
         }
+        
+        
     }
+
 
 }
     

@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     public float enemySpeed = 7;
     public float enemyCollisionDamage = 5;
+   
 
     [HideInInspector]
     public Player playerScript;
@@ -31,6 +32,8 @@ public class Enemy : MonoBehaviour
         rb = enemy.GetComponent<Rigidbody2D>();
 
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
+        
         
     }
 
@@ -39,6 +42,8 @@ public class Enemy : MonoBehaviour
     {
 
         EnemyMovement();
+
+       
 
     }
 
@@ -67,7 +72,7 @@ public class Enemy : MonoBehaviour
 
         }
 
-        if(collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Bullet")
         {
             Destroy(gameObject);
         }
