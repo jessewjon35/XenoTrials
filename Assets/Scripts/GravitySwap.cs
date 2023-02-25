@@ -16,7 +16,7 @@ public class GravitySwap : MonoBehaviour
 
     //private float shakeWaitTime = .7f;
     //private float minWaitTime = 0f;
-    private float gravityStamina = 30f;
+    private float gravityStamina = 15f;
 
     
 
@@ -74,7 +74,7 @@ public class GravitySwap : MonoBehaviour
         {
             rb.gravityScale *= -1;
 
-            player.currentStamina -= 20f;
+            player.currentStamina -= gravityStamina;
 
             //player flip from bottom to top
             Vector3 playerRotation = new Vector3(0, 180f, 180f);
