@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Melee : MonoBehaviour
-{
+{  
 
     private GameObject enemyClone;
+
+    public GameObject currency;
       
     public float meleeRange = .5f;
+    public float dropChance = .75f;
 
     public Transform meleepoint;
     
@@ -38,7 +41,11 @@ public class Melee : MonoBehaviour
         {
             Debug.Log("Attack hit!");
 
-            Destroy(obj: enemyClone); 
+            DropRate();
+
+            Destroy(obj: enemyClone);
+
+           
 
         }
 
@@ -51,7 +58,14 @@ public class Melee : MonoBehaviour
         Gizmos.DrawWireSphere(meleepoint.position, meleeRange);
     }
 
+    public void DropRate()
+    {
+        if (Random.Range(0f, 1f) <= dropChance)
+        {
+            Instantiate(currency, this.transform.position, Quaternion.identity);
+        }
 
+    }
 
 
 

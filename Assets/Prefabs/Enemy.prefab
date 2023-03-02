@@ -120,9 +120,11 @@ MonoBehaviour:
   currency: {fileID: 2469095561357570392, guid: 385ffafb20095d84a81b6ac679eca078, type: 3}
   enemySpeed: 5
   enemyCollisionDamage: 5
-  dropChance: 0.3
-  generator: 0
-  playerScript: {fileID: 0}
+  dropChance: 0.75
+  enemy1CurrentHealth: 0
+  playerScript: {fileID: 3195774420843652792, guid: 7402a09416f55324f832c6a152ab325b, type: 3}
+  pistol: {fileID: 4050397250709171568, guid: 568d4a9ab63a8e74f8a5e7af20857afa, type: 3}
+  shotgun: {fileID: 1714257129043670168, guid: 0bea6a2e718d1a24f9f4fd4e1af4665e, type: 3}
 --- !u!50 &3458602116386368892
 Rigidbody2D:
   serializedVersion: 4
