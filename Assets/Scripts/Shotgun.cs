@@ -1,15 +1,17 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pistol : MonoBehaviour
+public class Shotgun : MonoBehaviour
 {
     public PlayerUI playerUi;
     public GunStations gunStations;
-    
+    public Enemy enemy;
 
-    public GameObject bulletPrefab;
-    public Transform bulletSpawner;
+    public GameObject pelletPrefab;
+    public Transform shotgunBulletSpawner1;
+    public Transform shotgunBulletSpawner2;
+    public Transform shotgunBulletSpawner3;
 
     public float maxAmmoCapacity = 32;
     public float minAmmoCapacity = 0;
@@ -18,12 +20,9 @@ public class Pistol : MonoBehaviour
     public float minAmmoClip = 0;
     public float currentAmmoClip;
 
-
-
     public float reloadTime = .5f;
 
-
-    public float pistolDamage = 5;
+    public float shotgunDamage = 15;
 
     public bool isReloading = false;
 
@@ -34,8 +33,7 @@ public class Pistol : MonoBehaviour
     {
         currentAmmoClip = maxAmmoClip;
         currentAmmoCapacity = maxAmmoCapacity;
-        playerUi.SetPistolAmmo();
-
+        playerUi.SetShotgunAmmo();
     }
 
     // Update is called once per frame
@@ -73,12 +71,15 @@ public class Pistol : MonoBehaviour
 
     public void Shoot()
     {
-        if (currentAmmoClip > minAmmoClip && currentAmmoCapacity >= minAmmoCapacity && gunStations.pistolBought == true && isReloading == false)
+        if (currentAmmoClip > minAmmoClip && currentAmmoCapacity >= minAmmoCapacity && gunStations.shotgunBought == true && isReloading == false)
         {
-            Instantiate(bulletPrefab, bulletSpawner.position, bulletSpawner.rotation);
+            Instantiate(pelletPrefab, shotgunBulletSpawner1.position, shotgunBulletSpawner1.rotation);
+            Instantiate(pelletPrefab, shotgunBulletSpawner2.position, shotgunBulletSpawner2.rotation);
+            Instantiate(pelletPrefab, shotgunBulletSpawner3.position, shotgunBulletSpawner3.rotation);
+            
 
             currentAmmoClip -= 1;
-            playerUi.SetPistolAmmo();
+            playerUi.SetShotgunAmmo();
         }
 
     }
@@ -92,7 +93,7 @@ public class Pistol : MonoBehaviour
     {
         currentAmmoClip = maxAmmoClip;
         currentAmmoCapacity -= maxAmmoClip;
-        playerUi.SetPistolAmmo();
+        playerUi.SetShotgunAmmo();
     }
 
     public void ReloadTimerReset()
@@ -100,13 +101,12 @@ public class Pistol : MonoBehaviour
         reloadTime = .5f;
     }
 
-    
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            enemy.enemy1CurrentHealth -= shotgunDamage;
+        }
+    }
 
 }
-
-    
-
-
-
-

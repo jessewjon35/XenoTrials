@@ -12,6 +12,9 @@ TagManager:
   - Portal
   - Melee
   - currency
+  - pistolstation
+  - shotgunstation
+  - Pellets
   layers:
   - Default
   - TransparentFX

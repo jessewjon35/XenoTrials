@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+
+    public Enemy enemy;
+    public Pistol pistol;
+    public Shotgun shotgun;
+
     public Rigidbody2D rb;
 
     public float speed;
     public float lifeTime;
+
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +21,7 @@ public class Bullet : MonoBehaviour
         rb.velocity = transform.right * speed;
 
         Invoke("DestroyProjectile", lifeTime);
+       
 
     }
 
@@ -25,19 +32,28 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    
+
+    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.gameObject.tag == "Enemy")
         {
             Destroy(gameObject);
-            
         }
 
-        if(collision.gameObject.tag == "walls" && collision.gameObject.tag == "floor")
+        if (collision.gameObject.tag == "walls")
         {
             Destroy(gameObject);
         }
 
+        if(collision.gameObject.tag == "floor")
+        {
+            Destroy(gameObject);
+        }
     }
+
 
 }

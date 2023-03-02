@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     public Slider healthSlider;
     public Slider StaminaSlider;
 
-    [HideInInspector]
+    
     public Enemy enemy;
     
     public PlayerUI playerUi;
@@ -38,17 +38,11 @@ public class Player : MonoBehaviour
         GetComponent<BoxCollider2D>();
 
         currentCurrency = minCurrency;
+        playerUi.SetCurrency();
 
     }
 
-    private void FixedUpdate()
-    {
-        
-      
-        
-        
-        
-    }
+    
 
     // Update is called once per frame
     void Update()

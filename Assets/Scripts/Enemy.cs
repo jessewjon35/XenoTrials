@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public GameObject enemy;
     //private GameObject enemyClone;
     public GameObject currency;
+    
 
     private Transform target;
     
@@ -19,15 +20,24 @@ public class Enemy : MonoBehaviour
 
     public float enemySpeed = 7;
     public float enemyCollisionDamage = 5;
-    public float dropChance = .3f;
-    public float generator;
+    public float dropChance = .75f;
+    
+
+    public float enemy1CurrentHealth;
+    private float enemy1MinHealth = 0f;
+    private float enemy1MaxHealth = 10;
     
    
 
-    [HideInInspector]
+    
     public Player playerScript;
-
+    public Pistol pistol;
+    public Shotgun shotgun;
    
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,16 +47,21 @@ public class Enemy : MonoBehaviour
 
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
-        
-        
+        enemy1CurrentHealth = enemy1MaxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
 
         EnemyMovement();
-
+        
+        if(enemy1CurrentHealth <= enemy1MinHealth)
+        {
+            enemy1CurrentHealth = enemy1MinHealth;
+        }
+        
        
 
     }
@@ -63,35 +78,60 @@ public class Enemy : MonoBehaviour
         
     }
 
+
     public void DropRate()
     {
-        if(Random.Range(0f,1f) <= dropChance)
+        if (Random.Range(0f, 1f) <= dropChance)
         {
-            Instantiate(currency,this.transform.position, Quaternion.identity);
+            Instantiate(currency, this.transform.position, Quaternion.identity);
         }
-        
+    }
+
+    public void KillEnemy()
+    {
+        if(enemy1CurrentHealth <= enemy1MinHealth)
+        {
+            Destroy(gameObject);
+            DropRate();
+            
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player")
         {
-
-            if(gameObject.name == "Enemy(Clone)")
+            if (gameObject.name == "Enemy(Clone)")
             {
                 Destroy(gameObject);
-                
+
             }
+        }
+            
+        
+           
+
+        
+
+        if(collision.gameObject.tag == "Bullet")
+        {
+
+            Debug.Log(enemy1CurrentHealth);
+            KillEnemy();
+            enemy1CurrentHealth -= pistol.pistolDamage;
 
         }
-
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Pellets")
         {
-            Destroy(gameObject);
-            DropRate();
+
+            Debug.Log(enemy1CurrentHealth);
+            KillEnemy();
+            enemy1CurrentHealth -= shotgun.shotgunDamage;
         }
 
     }
+
+   
 
 
 

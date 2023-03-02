@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
     public GameObject bulletSpawn;
+    public GameObject pelletSpawn1;
+    public GameObject pelletSpawn2;
+    public GameObject pelletSpawn3;
 
     public Joystick joystick;
 
@@ -57,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
 
     }
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         
 
@@ -195,8 +198,11 @@ public class PlayerController : MonoBehaviour
     {
         isFacingRight = !isFacingRight;
         bulletSpawn.transform.Rotate(0f, 180f, 0f);
-        
-        Vector3 theScale = transform.localScale;
+        pelletSpawn1.transform.Rotate(0f, 180f, 0f);
+        pelletSpawn2.transform.Rotate(0f, 180f, 0f);
+        pelletSpawn3.transform.Rotate(0f, 180f, 0f);
+
+    Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
 
