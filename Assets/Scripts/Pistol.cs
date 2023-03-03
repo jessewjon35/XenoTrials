@@ -1,12 +1,15 @@
  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Pistol : MonoBehaviour
 {
+    public Player player;
     public PlayerUI playerUi;
     public GunStations gunStations;
-    
+    public Enemy enemy;
+
 
     public GameObject bulletPrefab;
     public Transform bulletSpawner;
@@ -18,15 +21,16 @@ public class Pistol : MonoBehaviour
     public float minAmmoClip = 0;
     public float currentAmmoClip;
 
-
+    public float pistolCurrencyPerHit = 20f;
 
     public float reloadTime = .5f;
 
 
-    public float pistolDamage = 5;
+    public float pistolDamage = 25f;
 
     public bool isReloading = false;
 
+    public Button shootButton;
 
 
     // Start is called before the first frame update
@@ -35,6 +39,8 @@ public class Pistol : MonoBehaviour
         currentAmmoClip = maxAmmoClip;
         currentAmmoCapacity = maxAmmoCapacity;
         playerUi.SetPistolAmmo();
+
+        shootButton.gameObject.SetActive(true);
 
     }
 

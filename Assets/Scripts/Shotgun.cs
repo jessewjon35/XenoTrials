@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shotgun : MonoBehaviour
 {
@@ -20,17 +21,21 @@ public class Shotgun : MonoBehaviour
     public float minAmmoClip = 0;
     public float currentAmmoClip;
 
+    public float shotgunCurrencyPerHit = 5f;
+
     public float reloadTime = .5f;
 
     public float shotgunDamage = 15;
 
     public bool isReloading = false;
 
-
+    public Button shootButton;
 
     // Start is called before the first frame update
     void Start()
     {
+        shootButton.gameObject.SetActive(true);
+
         currentAmmoClip = maxAmmoClip;
         currentAmmoCapacity = maxAmmoCapacity;
         playerUi.SetShotgunAmmo();
@@ -71,8 +76,10 @@ public class Shotgun : MonoBehaviour
 
     public void Shoot()
     {
+        Debug.Log("ButtonWorks");
         if (currentAmmoClip > minAmmoClip && currentAmmoCapacity >= minAmmoCapacity && gunStations.shotgunBought == true && isReloading == false)
         {
+            
             Instantiate(pelletPrefab, shotgunBulletSpawner1.position, shotgunBulletSpawner1.rotation);
             Instantiate(pelletPrefab, shotgunBulletSpawner2.position, shotgunBulletSpawner2.rotation);
             Instantiate(pelletPrefab, shotgunBulletSpawner3.position, shotgunBulletSpawner3.rotation);
@@ -101,12 +108,12 @@ public class Shotgun : MonoBehaviour
         reloadTime = .5f;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
             enemy.enemy1CurrentHealth -= shotgunDamage;
         }
-    }
+    }*/
 
 }

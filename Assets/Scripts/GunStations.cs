@@ -13,6 +13,7 @@ public class GunStations : MonoBehaviour
 
     public Button pistolStationButton;
     public Button shotgunStationButton;
+    
 
     public GameObject pistol;
     public GameObject shotgun;
@@ -30,8 +31,8 @@ public class GunStations : MonoBehaviour
     private float shotgunAffordableRefill;
     private float shotgunAffordableRefillCost;
 
-    public bool pistolBought;
-    public bool shotgunBought;
+    public bool pistolBought = false;
+    public bool shotgunBought = false;
   
     
 
@@ -42,11 +43,11 @@ public class GunStations : MonoBehaviour
         pistol.SetActive(false);
         shotgun.SetActive(false);
         
-        pistolBought = false;
-        shotgunBought = false;
+        
 
         pistolStationButton.gameObject.SetActive(false);
         shotgunStationButton.gameObject.SetActive(false);
+        
 
         
     }
@@ -69,6 +70,7 @@ public class GunStations : MonoBehaviour
         shotgunAffordableRefill = player.currentCurrency / ammoCost;
         shotgunAffordableRefillCost = shotgunAffordableRefill * ammoCost;
 
+        
 
     }
 
@@ -159,15 +161,17 @@ public class GunStations : MonoBehaviour
     }
 
 
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (gameObject.name == "PistolStation")
+            if (gameObject.name == "PistolStation" || gameObject.name == "PistolStation (1)")
             {
                 pistolStationButton.gameObject.SetActive(true);
             }
-            else if (gameObject.name == "ShotgunStation")
+            else if (gameObject.name == "ShotgunStation" || gameObject.name == "ShotgunStation (1)")
             {
                 shotgunStationButton.gameObject.SetActive(true);
             }
@@ -179,11 +183,11 @@ public class GunStations : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
 
-            if (gameObject.name == "PistolStation")
+            if (gameObject.name == "PistolStation" || gameObject.name == "PistolStation (1)")
             {
                 pistolStationButton.gameObject.SetActive(false);
             }
-            else if(gameObject.name == "ShotgunStation")
+            else if(gameObject.name == "ShotgunStation" || gameObject.name == "ShotgunStation (1)")
             {
                 shotgunStationButton.gameObject.SetActive(false);
             }

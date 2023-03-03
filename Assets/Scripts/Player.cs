@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public Enemy enemy;
+
+    public PlayerUI playerUi;
+
     public Rigidbody2D rb;
 
     public float maxHealth = 100f;
@@ -17,15 +21,12 @@ public class Player : MonoBehaviour
     public float currentStamina;
 
     public float currentCurrency;
-    public float minCurrency = 0f;
+    private float minCurrency = 0f;
 
     public Slider healthSlider;
     public Slider StaminaSlider;
 
-    
-    public Enemy enemy;
-    
-    public PlayerUI playerUi;
+    public GameObject gameOverPanel;
     
     // Start is called before the first frame update
     void Start()
@@ -37,8 +38,10 @@ public class Player : MonoBehaviour
 
         GetComponent<BoxCollider2D>();
 
-        currentCurrency = minCurrency;
-        playerUi.SetCurrency();
+        playerUi.ResetCurrency();
+
+        gameOverPanel.SetActive(false);
+        
 
     }
 
@@ -47,11 +50,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        playerUi.SetCurrency();
 
         if(currentHealth <= minHealth)
         {
             currentHealth = minHealth;
+            Time.timeScale = 0;
+            gameOverPanel.SetActive(true);
         }
 
         if(currentHealth >= maxHealth)
@@ -81,6 +86,7 @@ public class Player : MonoBehaviour
         {
             currentCurrency = minCurrency;
         }
+        
         
 
         //Debug.Log(currentStamina);

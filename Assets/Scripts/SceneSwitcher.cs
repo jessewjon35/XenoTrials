@@ -33,4 +33,14 @@ public class SceneSwitcher : MonoBehaviour
         SceneManager.LoadScene("Credits");
     }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
 }

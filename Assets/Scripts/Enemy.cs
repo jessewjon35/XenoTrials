@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    //public Rigidbody2D rb;
 
     public GameObject enemy;
+    public GameObject bulletPrefab;
     //private GameObject enemyClone;
-    public GameObject currency;
+    //public GameObject currency;
     
 
     private Transform target;
@@ -18,22 +21,24 @@ public class Enemy : MonoBehaviour
     //private int minDistance = 1;
     //private int maxDistance = 10;
 
-    public float enemySpeed = 7;
+    public float enemySpeed = 5;
     public float enemyCollisionDamage = 5;
-    public float dropChance = .75f;
+    //public float dropChance = .75f;
+    
     
 
     public float enemy1CurrentHealth;
     private float enemy1MinHealth = 0f;
-    private float enemy1MaxHealth = 10;
+    private float enemy1MaxHealth = 50;
     
    
 
     
-    public Player playerScript;
-    public Pistol pistol;
-    public Shotgun shotgun;
-   
+     public Player playerScript;
+    
+     public Pistol pistol;
+     public Shotgun shotgun;
+   //private PlayerUI playerUi;
 
 
 
@@ -43,9 +48,14 @@ public class Enemy : MonoBehaviour
     void Start()
     {
 
-        rb = enemy.GetComponent<Rigidbody2D>();
+        //rb = enemy.GetComponent<Rigidbody2D>();
 
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        pistol = GameObject.FindGameObjectWithTag("Player").GetComponent<Pistol>();
+        shotgun = GameObject.FindGameObjectWithTag("Player").GetComponent<Shotgun>();
+        //playerUi = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerUI>();
 
         enemy1CurrentHealth = enemy1MaxHealth;
     }
@@ -55,20 +65,20 @@ public class Enemy : MonoBehaviour
     {
         
 
-        EnemyMovement();
+        //EnemyMovement();
         
         if(enemy1CurrentHealth <= enemy1MinHealth)
         {
             enemy1CurrentHealth = enemy1MinHealth;
         }
         
-       
+        
 
     }
 
     
 
-    public void EnemyMovement()
+    /*public void EnemyMovement()
     {
        
         
@@ -76,23 +86,23 @@ public class Enemy : MonoBehaviour
         
         
         
-    }
+    }*/
 
 
-    public void DropRate()
+    /*public void DropRate()
     {
         if (Random.Range(0f, 1f) <= dropChance)
         {
             Instantiate(currency, this.transform.position, Quaternion.identity);
         }
-    }
+    }*/
 
     public void KillEnemy()
     {
         if(enemy1CurrentHealth <= enemy1MinHealth)
         {
             Destroy(gameObject);
-            DropRate();
+            //DropRate();
             
         }
     }
@@ -107,26 +117,34 @@ public class Enemy : MonoBehaviour
 
             }
         }
+
             
-        
-           
-
-        
-
         if(collision.gameObject.tag == "Bullet")
         {
+            
+
+            enemy1CurrentHealth -= pistol.pistolDamage;
+            playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
+           
+            
 
             Debug.Log(enemy1CurrentHealth);
             KillEnemy();
-            enemy1CurrentHealth -= pistol.pistolDamage;
+            
 
         }
+
+
         if (collision.gameObject.tag == "Pellets")
         {
+            enemy1CurrentHealth -= shotgun.shotgunDamage;
+            
+            
+           
 
             Debug.Log(enemy1CurrentHealth);
             KillEnemy();
-            enemy1CurrentHealth -= shotgun.shotgunDamage;
+            
         }
 
     }

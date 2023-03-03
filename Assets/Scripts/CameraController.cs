@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class CameraController : MonoBehaviour
 {
@@ -8,9 +9,9 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         
-        
-        
+
     }
 
     // Update is called once per frame
@@ -28,6 +29,7 @@ public class CameraController : MonoBehaviour
         if(collision.CompareTag("Player") && !collision.isTrigger)
         {
             virtualCam.SetActive(true);
+            AstarPath.active.Scan();
         }
     }
 
@@ -36,6 +38,7 @@ public class CameraController : MonoBehaviour
         if (collision.CompareTag("Player") && !collision.isTrigger)
         {
             virtualCam.SetActive(false);
+            AstarPath.active.Scan();
         }
     }
 

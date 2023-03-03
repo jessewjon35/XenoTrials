@@ -10,6 +10,7 @@ public class PlayerUI : MonoBehaviour
     public Player player;
     public Pistol pistol;
     public Shotgun shotgun;
+    public Enemy enemy;
 
     public Slider healthSlider;
     public Slider staminaSlider;
@@ -26,8 +27,8 @@ public class PlayerUI : MonoBehaviour
 
         currencyText.text = "$ " + player.currentCurrency.ToString();
 
-       
-        SetCurrency();
+        
+        
 
         pistolAmmoText.enabled = false;
         shotgunAmmoText.enabled = false;
@@ -43,7 +44,7 @@ public class PlayerUI : MonoBehaviour
     void Update()
     {
 
-        SetCurrency();
+        
         
 
     }
@@ -73,6 +74,13 @@ public class PlayerUI : MonoBehaviour
     public void SetCurrency()
     {
         currencyText.text = "$ " + player.currentCurrency.ToString();
+        PlayerPrefs.SetFloat("Currency", player.currentCurrency);
+        
+    }
+
+    public void ResetCurrency()
+    {
+        PlayerPrefs.DeleteKey("Currency");
     }
 
 
