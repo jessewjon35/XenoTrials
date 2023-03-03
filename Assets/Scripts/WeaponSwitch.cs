@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponSwitch : MonoBehaviour
 {
-    [HideInInspector]
+    
     public GunStations gunStations;
     public PlayerUI playerUi;
 
     public GameObject pistol;
     public GameObject shotgun;
-    
+
+    public Button swapButton;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        swapButton.gameObject.SetActive(false);
         pistol.SetActive(false);
         shotgun.SetActive(false);
     }
@@ -23,12 +26,19 @@ public class WeaponSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(gunStations.pistolBought == true && gunStations.shotgunBought == true)
+        {
+            swapButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            swapButton.gameObject.SetActive(false);
+        }
     }
 
     public void WeaponSwitching()
     {
-        if(gunStations.pistolBought && gunStations.shotgunBought == true && shotgun.activeSelf == true)
+        if(gunStations.pistolBought == true && gunStations.shotgunBought == true && shotgun.activeSelf == true)
         {
             pistol.SetActive(true);
             
@@ -36,11 +46,12 @@ public class WeaponSwitch : MonoBehaviour
 
             playerUi.SetPistolAmmo();
         }
-        else if(gunStations.pistolBought && gunStations.shotgunBought == true && pistol.activeSelf == true)
+        else if(gunStations.pistolBought == true && gunStations.shotgunBought == true && pistol.activeSelf == true)
         {
             pistol.SetActive(false);
 
             shotgun.SetActive(true);
+
             playerUi.SetShotgunAmmo();
         }
     }

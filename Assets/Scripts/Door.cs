@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class Door : MonoBehaviour
 {
 
@@ -21,8 +22,16 @@ public class Door : MonoBehaviour
     public float doorPrice;
     public int doorsOpened;
 
-    public bool doorOneUnlocked;
-    public bool doorEightUnlocked;
+    public bool roomOneUnlocked;
+    public bool roomTwoUnlocked;
+    public bool roomThreeUnlocked;
+    public bool roomFourUnlocked;
+    public bool roomFiveUnlocked;
+    public bool roomSixUnlocked;
+    public bool roomSixaUnlocked;
+    public bool roomSixbUnlocked;
+    public bool roomSevenUnlocked;
+    public bool roomEightUnlocked;
 
     // Start is called before the first frame update
     void Start()
@@ -30,14 +39,23 @@ public class Door : MonoBehaviour
         doorButton1.gameObject.SetActive(false);
         
 
-        doorOneUnlocked = false;
-        doorEightUnlocked = false;
+        roomTwoUnlocked = false;
+        roomThreeUnlocked = false;
+        roomFourUnlocked = false;
+        roomFiveUnlocked = false;
+        roomSixUnlocked = false;
+        roomSixaUnlocked = false;
+        roomSixbUnlocked = false;
+        roomSevenUnlocked = false;
+        roomEightUnlocked = false;
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+      
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -62,14 +80,16 @@ public class Door : MonoBehaviour
     public void Door12()
     {
         if(player.currentCurrency >= doorPrice)
-        {
+        {      
             door = GameObject.Find("Door1-2");
             Destroy(door);
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
-
+            
+            
             doorsOpened++;
-            doorOneUnlocked = true;
+            roomTwoUnlocked = true;
+            
         }
     }
     public void Door23()
@@ -81,7 +101,9 @@ public class Door : MonoBehaviour
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
-           
+            doorsOpened++;
+            roomTwoUnlocked = true;
+            roomThreeUnlocked = true;
         }
     }
     public void Door34()
@@ -93,18 +115,24 @@ public class Door : MonoBehaviour
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
+            doorsOpened++;
+            roomThreeUnlocked = true;
+            roomFourUnlocked = true;
+            
         }
     }
     public void Door3a()
     {
         if (player.currentCurrency >= doorPrice)
         {
-            door = GameObject.Find("Door3a");
+            door = GameObject.Find("Door3a-3");
             Destroy(door);
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
-           
+            doorsOpened++;
+            roomThreeUnlocked = true;
+            
         }
     }
     public void Door45()
@@ -116,7 +144,9 @@ public class Door : MonoBehaviour
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
-            
+            doorsOpened++;
+            roomFourUnlocked = true;
+            roomFiveUnlocked = true;
         }
     }
     public void Door56()
@@ -128,7 +158,9 @@ public class Door : MonoBehaviour
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
-            
+            doorsOpened++;
+            roomFiveUnlocked = true;
+            roomSixUnlocked = true;
         }
     }
     public void Door67()
@@ -140,7 +172,9 @@ public class Door : MonoBehaviour
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
-            
+            doorsOpened++;
+            roomSixUnlocked = true;
+            roomSevenUnlocked = true;
         }
     }
     public void Door6a()
@@ -152,7 +186,9 @@ public class Door : MonoBehaviour
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
-            
+            doorsOpened++;
+            roomSixUnlocked = true;
+            roomSixaUnlocked = true;
         }
     }
     public void Door6b()
@@ -164,7 +200,9 @@ public class Door : MonoBehaviour
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
-            
+            doorsOpened++;
+            roomSixaUnlocked = true;
+            roomSixbUnlocked = true;
         }
     }
     public void Door78()
@@ -176,7 +214,9 @@ public class Door : MonoBehaviour
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
-            
+            doorsOpened++;
+            roomSevenUnlocked = true;
+            roomEightUnlocked = true;
         }
     }
     public void Door81()
@@ -188,7 +228,8 @@ public class Door : MonoBehaviour
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
-            doorEightUnlocked = true;
+            doorsOpened++;
+            roomEightUnlocked = true;
         }
     }
 

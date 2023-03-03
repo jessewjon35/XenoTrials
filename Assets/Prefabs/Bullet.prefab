@@ -136,9 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bf7b4f25bb06e47acb3b5a546a144a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 4361683923147727791, guid: b694fe34010342043bb7981524b32997, type: 3}
-  pistol: {fileID: 4050397250709171568, guid: 568d4a9ab63a8e74f8a5e7af20857afa, type: 3}
-  shotgun: {fileID: 1714257129043670168, guid: 0bea6a2e718d1a24f9f4fd4e1af4665e, type: 3}
+  player: {fileID: 7141433739839070973, guid: cf0d5f195f7d7e341acfb5ebb4d74831, type: 3}
+  playerUi: {fileID: 7141433739839070974, guid: cf0d5f195f7d7e341acfb5ebb4d74831, type: 3}
+  pistol: {fileID: 8414265432125435176, guid: f8617fc83b3b58d45b8127e8ae788fc8, type: 3}
   rb: {fileID: 4681956455489157580}
   speed: 25
   lifeTime: 2

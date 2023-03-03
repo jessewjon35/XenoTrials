@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
-    public Enemy enemy;
-    public Pistol pistol;
-    public Shotgun shotgun;
+    
 
     public Rigidbody2D rb;
 
@@ -25,7 +22,7 @@ public class Bullet : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    
     
 
     public void DestroyProjectile()
@@ -41,6 +38,7 @@ public class Bullet : MonoBehaviour
         
         if (collision.gameObject.tag == "Enemy")
         {
+            
             Destroy(gameObject);
         }
 
