@@ -89,6 +89,7 @@ public class PlayerUI : MonoBehaviour
         pistolAmmoText.text = "Ammo: " + pistol.currentAmmoClip.ToString() + " / " + pistol.currentAmmoCapacity.ToString();
         PlayerPrefs.SetFloat("PistolAmmoClip", pistol.currentAmmoClip);
         PlayerPrefs.SetFloat("PistolAmmoCapacity", pistol.currentAmmoCapacity);
+        PlayerPrefs.Save();
     }
 
     public void SetShotgunAmmo()
@@ -96,6 +97,7 @@ public class PlayerUI : MonoBehaviour
         shotgunAmmoText.text = "Ammo: " + shotgun.currentAmmoClip.ToString() + " / " + shotgun.currentAmmoCapacity.ToString();
         PlayerPrefs.SetFloat("ShotgunAmmoClip", shotgun.currentAmmoClip);
         PlayerPrefs.SetFloat("ShotgunAmmoCapacity", shotgun.currentAmmoCapacity);
+        PlayerPrefs.Save();
     }
 
     public void ResetAmmo()

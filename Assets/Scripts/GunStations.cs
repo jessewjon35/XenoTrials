@@ -10,46 +10,55 @@ public class GunStations : MonoBehaviour
     public Pistol pistolScript;
     public Shotgun shotgunScript;
     public PlayerUI playerUi;
+    public WeaponSwitch weaponSwitch;
 
     public Button pistolStationButton;
     public Button shotgunStationButton;
-    
+    public Button pistolAmmoPurchaseButton;
+    public Button shotgunAmmoPurchaseButton;
+    public Button shootButton;
 
     public GameObject pistol;
     public GameObject shotgun;
 
-    public float gunCost;
-    public float ammoCost;
+    public int gunCost;
+    public int ammoCost;
 
-    private float pistolRefillCost;
-    private float pistolRefillCount;
-    private float pistolAffordableRefill;
-    private float pistolAffordableRefillCost;
+    private int pistolRefillCost;
+    private int pistolRefillCount;
+    private int pistolAffordableRefill;
+    private int pistolAffordableRefillCost;
 
-    private float shotgunRefillCost;
-    private float shotgunRefillCount;
-    private float shotgunAffordableRefill;
-    private float shotgunAffordableRefillCost;
+    private int shotgunRefillCost;
+    private int shotgunRefillCount;
+    private int shotgunAffordableRefill;
+    private int shotgunAffordableRefillCost;
 
-    public bool pistolBought = false;
-    public bool shotgunBought = false;
-  
-    
+
+
+
+    private void Awake()
+    {
+         
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        shootButton.gameObject.SetActive(false);
 
         pistol.SetActive(false);
         shotgun.SetActive(false);
-        
-        
 
         pistolStationButton.gameObject.SetActive(false);
         shotgunStationButton.gameObject.SetActive(false);
-        
 
-        
+        pistolAmmoPurchaseButton.gameObject.SetActive(false);
+        shotgunAmmoPurchaseButton.gameObject.SetActive(false);
+
+        weaponSwitch.pistolBought = false;
+        weaponSwitch.shotgunBought = false;
+
     }
 
     // Update is called once per frame
@@ -76,42 +85,25 @@ public class GunStations : MonoBehaviour
 
     public void PistolPurchase()
     {
-        if(player.currentCurrency >= gunCost && pistolBought == false)
+        if (player.currentCurrency >= gunCost && weaponSwitch.pistolBought == false)
         {
+            shootButton.gameObject.SetActive(true);
+
             pistol.SetActive(true);
-            pistolBought = true;
+            shotgun.SetActive(false);
+            weaponSwitch.pistolBought = true;
+
             playerUi.pistolAmmoText.enabled = true;
+            playerUi.shotgunAmmoText.enabled = false;
             player.currentCurrency -= gunCost;
 
             playerUi.SetCurrency();
             playerUi.SetPistolAmmo();
-            
-        }
-        else if(player.currentCurrency >= pistolRefillCost && pistolBought == true && pistolScript.currentAmmoCapacity < pistolScript.maxAmmoCapacity)
-        {
-            pistolScript.currentAmmoCapacity = pistolScript.maxAmmoCapacity;
-            pistolScript.currentAmmoClip = pistolScript.maxAmmoClip;
-            player.currentCurrency -= pistolRefillCost;
-            playerUi.SetCurrency();
-            playerUi.SetPistolAmmo();
 
+            weaponSwitch.SwapEnabledCheck();
         }
-        else if(player.currentCurrency < pistolRefillCost && pistolBought == true && pistolScript.currentAmmoCapacity < pistolScript.maxAmmoCapacity)
-        {
-            pistolScript.currentAmmoCapacity += pistolAffordableRefill;
-            player.currentCurrency -= pistolAffordableRefillCost;
-            playerUi.SetCurrency();
-            playerUi.SetPistolAmmo();
 
-            if(pistolScript.currentAmmoCapacity >= pistolScript.maxAmmoCapacity)
-            {
-                pistolScript.currentAmmoCapacity = pistolScript.maxAmmoCapacity;
-            }
-            else if(pistolScript.currentAmmoCapacity <= pistolScript.minAmmoCapacity)
-            {
-                pistolScript.currentAmmoCapacity = pistolScript.minAmmoCapacity;
-            }
-        }
+
 
 
 
@@ -119,81 +111,135 @@ public class GunStations : MonoBehaviour
 
     public void ShotgunPurchase()
     {
-        if (player.currentCurrency >= gunCost && shotgunBought == false)
+        if (player.currentCurrency >= gunCost && weaponSwitch.shotgunBought == false)
         {
+            shootButton.gameObject.SetActive(true);
+
             shotgun.SetActive(true);
-            shotgunBought = true;
+            pistol.SetActive(false);
+            weaponSwitch.shotgunBought = true;
             playerUi.shotgunAmmoText.enabled = true;
+            playerUi.pistolAmmoText.enabled = false;
             player.currentCurrency -= gunCost;
 
             playerUi.SetCurrency();
             playerUi.SetShotgunAmmo();
 
-        }
-        else if (player.currentCurrency >= shotgunRefillCost && shotgunBought == true && shotgunScript.currentAmmoCapacity < shotgunScript.maxAmmoCapacity)
-        {
-            shotgunScript.currentAmmoCapacity = shotgunScript.maxAmmoCapacity;
-            shotgunScript.currentAmmoClip = shotgunScript.maxAmmoClip;
-            player.currentCurrency -= shotgunRefillCost;
-            playerUi.SetCurrency();
-            playerUi.SetShotgunAmmo();
+            weaponSwitch.SwapEnabledCheck();
 
         }
-        else if (player.currentCurrency < shotgunRefillCost && shotgunBought == true && shotgunScript.currentAmmoCapacity < shotgunScript.maxAmmoCapacity)
-        {
-            pistolScript.currentAmmoCapacity += shotgunAffordableRefill;
-            player.currentCurrency -= shotgunAffordableRefillCost;
-            playerUi.SetCurrency();
-            playerUi.SetShotgunAmmo();
-
-            if (shotgunScript.currentAmmoCapacity >= shotgunScript.maxAmmoCapacity)
-            {
-                shotgunScript.currentAmmoCapacity = shotgunScript.maxAmmoCapacity;
-            }
-            else if (shotgunScript.currentAmmoCapacity <= shotgunScript.minAmmoCapacity)
-            {
-                shotgunScript.currentAmmoCapacity = shotgunScript.minAmmoCapacity;
-            }
-        }
-
-
 
     }
 
+    public void PistolAmmoPurchase()
+    {
+        if (player.currentCurrency >= pistolRefillCost && weaponSwitch.pistolBought == true && pistolScript.currentAmmoCapacity < pistolScript.maxAmmoCapacity)
+        {
+            pistol.SetActive(true);
+            shotgun.SetActive(false);
+
+            pistolScript.currentAmmoCapacity = pistolScript.maxAmmoCapacity;
+            pistolScript.currentAmmoClip = pistolScript.maxAmmoClip;
+            player.currentCurrency -= pistolRefillCost;
+
+            playerUi.shotgunAmmoText.enabled = false ;
+            playerUi.pistolAmmoText.enabled = true;
 
 
+            playerUi.SetCurrency();
+            playerUi.SetPistolAmmo();
+
+        }
+
+        if (player.currentCurrency < pistolRefillCost && weaponSwitch.pistolBought == true && pistolScript.currentAmmoCapacity < pistolScript.maxAmmoCapacity)
+        {
+            pistol.SetActive(true);
+            shotgun.SetActive(false);
+
+            pistolScript.currentAmmoCapacity += pistolAffordableRefill;
+            player.currentCurrency -= pistolAffordableRefillCost;
+
+            playerUi.shotgunAmmoText.enabled = false;
+            playerUi.pistolAmmoText.enabled = true;
+
+            playerUi.SetCurrency();
+            playerUi.SetPistolAmmo();
+
+
+        }
+    }
+
+    public void ShotgunAmmoPurchase()
+    {
+        if (player.currentCurrency >= shotgunRefillCost && weaponSwitch.shotgunBought == true && shotgunScript.currentAmmoCapacity < shotgunScript.maxAmmoCapacity)
+        {
+            pistol.SetActive(false);
+            shotgun.SetActive(true);
+
+            shotgunScript.currentAmmoCapacity = shotgunScript.maxAmmoCapacity;
+            shotgunScript.currentAmmoClip = shotgunScript.maxAmmoClip;
+            player.currentCurrency -= shotgunRefillCost;
+
+            playerUi.shotgunAmmoText.enabled = true;
+            playerUi.pistolAmmoText.enabled = false;
+
+            playerUi.SetCurrency();
+            playerUi.SetShotgunAmmo();
+
+        }
+        else if (player.currentCurrency < shotgunRefillCost && weaponSwitch.shotgunBought == true && shotgunScript.currentAmmoCapacity < shotgunScript.maxAmmoCapacity)
+        {
+            pistol.SetActive(false);
+            shotgun.SetActive(true);
+
+            shotgunScript.currentAmmoCapacity += shotgunAffordableRefill;
+            player.currentCurrency -= shotgunAffordableRefillCost;
+
+            playerUi.shotgunAmmoText.enabled = true;
+            playerUi.pistolAmmoText.enabled = false;
+
+            playerUi.SetCurrency();
+            playerUi.SetShotgunAmmo();
+
+
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if(collision.tag == "Player")
+            if(weaponSwitch.pistolBought == false && gameObject.tag == "pistolstation")
         {
-            if (gameObject.name == "PistolStation" || gameObject.name == "PistolStation (1)")
-            {
-                pistolStationButton.gameObject.SetActive(true);
-            }
-            else if (gameObject.name == "ShotgunStation" || gameObject.name == "ShotgunStation (1)")
-            {
-                shotgunStationButton.gameObject.SetActive(true);
-            }
+            pistolStationButton.gameObject.SetActive(true);
         }
+        else if(weaponSwitch.pistolBought == true && gameObject.tag == "pistolstation")
+        {
+            pistolAmmoPurchaseButton.gameObject.SetActive(true);
+        }
+
+        if (collision.gameObject.tag == "Player")
+            if(weaponSwitch.shotgunBought == false && gameObject.name == "ShotgunStation" || gameObject.name == "ShotgunStation (1)")
+        {
+            shotgunStationButton.gameObject.SetActive(true);
+        }
+        else if(weaponSwitch.shotgunBought == true && gameObject.name == "ShotgunStation" || gameObject.name == "ShotgunStation (1)")
+        {
+            shotgunAmmoPurchaseButton.gameObject.SetActive(true);
+        }
+
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
+        pistolStationButton.gameObject.SetActive(false);
+        pistolAmmoPurchaseButton.gameObject.SetActive(false);
 
-            if (gameObject.name == "PistolStation" || gameObject.name == "PistolStation (1)")
-            {
-                pistolStationButton.gameObject.SetActive(false);
-            }
-            else if(gameObject.name == "ShotgunStation" || gameObject.name == "ShotgunStation (1)")
-            {
-                shotgunStationButton.gameObject.SetActive(false);
-            }
-
-        }
-        
+        shotgunStationButton.gameObject.SetActive(false);
+        shotgunAmmoPurchaseButton.gameObject.SetActive(false);
     }
 
+
 }
+
+

@@ -12,7 +12,7 @@ public class ItemPickup : MonoBehaviour
 
     private GameObject currencyClone;
 
-    public float currencyAmount = 50;
+    public int currencyAmount = 50;
 
     // Start is called before the first frame update
     void Start()

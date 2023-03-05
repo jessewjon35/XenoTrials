@@ -19,7 +19,7 @@ public class Door : MonoBehaviour
     [SerializeField]
     private PlayerUI playerUi;
 
-    public float doorPrice;
+    public int doorPrice;
     public int doorsOpened;
 
     public bool roomOneUnlocked;
@@ -123,7 +123,7 @@ public class Door : MonoBehaviour
     }
     public void Door3a()
     {
-        if (player.currentCurrency >= doorPrice)
+        if (player.currentCurrency >= doorPrice && roomSixaUnlocked == true)
         {
             door = GameObject.Find("Door3a-3");
             Destroy(door);
@@ -179,7 +179,7 @@ public class Door : MonoBehaviour
     }
     public void Door6a()
     {
-        if (player.currentCurrency >= doorPrice)
+        if (player.currentCurrency >= doorPrice )
         {
             door = GameObject.Find("Door6a");
             Destroy(door);
@@ -193,7 +193,7 @@ public class Door : MonoBehaviour
     }
     public void Door6b()
     {
-        if (player.currentCurrency >= doorPrice)
+        if (player.currentCurrency >= doorPrice && roomThreeUnlocked == true)
         {
             door = GameObject.Find("Door6b");
             Destroy(door);

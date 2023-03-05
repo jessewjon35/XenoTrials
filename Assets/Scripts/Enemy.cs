@@ -21,21 +21,20 @@ public class Enemy : MonoBehaviour
     //private int minDistance = 1;
     //private int maxDistance = 10;
 
-    public float enemySpeed = 5;
-    public float enemyCollisionDamage = 5;
+    public int enemySpeed = 5;
+    public int enemyCollisionDamage = 5;
     //public float dropChance = .75f;
     
     
 
-    public float enemy1CurrentHealth;
-    private float enemy1MinHealth = 0f;
-    private float enemy1MaxHealth = 50;
+    public int enemy1CurrentHealth;
+    private int enemy1MinHealth = 0;
+    private int enemy1MaxHealth = 50;
     
    
 
     
-     public Player playerScript;
-    
+     public Player playerScript;    
      public Pistol pistol;
      public Shotgun shotgun;
    //private PlayerUI playerUi;
@@ -121,15 +120,16 @@ public class Enemy : MonoBehaviour
             
         if(collision.gameObject.tag == "Bullet")
         {
-            
+            if(gameObject.name == "Enemy(Clone)")
+            { 
+                enemy1CurrentHealth -= pistol.pistolDamage;
+                playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
+                
+                Debug.Log(enemy1CurrentHealth);
+                KillEnemy();
 
-            enemy1CurrentHealth -= pistol.pistolDamage;
-            playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
-           
-            
-
-            Debug.Log(enemy1CurrentHealth);
-            KillEnemy();
+            }
+  
             
 
         }
@@ -137,13 +137,14 @@ public class Enemy : MonoBehaviour
 
         if (collision.gameObject.tag == "Pellets")
         {
-            enemy1CurrentHealth -= shotgun.shotgunDamage;
-            
-            
-           
+            if(gameObject.name == "Enemy(Clone)")
+            {
+                enemy1CurrentHealth -= shotgun.shotgunDamage;
+                playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
 
-            Debug.Log(enemy1CurrentHealth);
-            KillEnemy();
+                Debug.Log(enemy1CurrentHealth);
+                KillEnemy();
+            }  
             
         }
 

@@ -5,32 +5,36 @@ using UnityEngine.UI;
 
 public class Pistol : MonoBehaviour
 {
-    public Player player;
+    
     public PlayerUI playerUi;
     public GunStations gunStations;
     public Enemy enemy;
+    public WeaponSwitch weaponSwitch;
+    public Shotgun shotgunScript;
 
+    public GameObject pistol;
+    public GameObject shotgun;
 
     public GameObject bulletPrefab;
     public Transform bulletSpawner;
 
-    public float maxAmmoCapacity = 32;
-    public float minAmmoCapacity = 0;
-    public float currentAmmoCapacity;
-    public float maxAmmoClip = 16;
-    public float minAmmoClip = 0;
-    public float currentAmmoClip;
+    public int maxAmmoCapacity = 32;
+    public int minAmmoCapacity = 0;
+    public int currentAmmoCapacity;
+    public int maxAmmoClip = 16;
+    public int minAmmoClip = 0;
+    public int currentAmmoClip;
 
-    public float pistolCurrencyPerHit = 20f;
+    public int pistolCurrencyPerHit = 20;
 
     public float reloadTime = .5f;
 
 
-    public float pistolDamage = 25f;
+    public int pistolDamage = 25;
 
     public bool isReloading = false;
 
-    public Button shootButton;
+    
 
 
     // Start is called before the first frame update
@@ -40,7 +44,8 @@ public class Pistol : MonoBehaviour
         currentAmmoCapacity = maxAmmoCapacity;
         playerUi.SetPistolAmmo();
 
-        shootButton.gameObject.SetActive(true);
+       
+
 
     }
 
@@ -79,13 +84,14 @@ public class Pistol : MonoBehaviour
 
     public void Shoot()
     {
-        if (currentAmmoClip > minAmmoClip && currentAmmoCapacity >= minAmmoCapacity && gunStations.pistolBought == true && isReloading == false)
+        if (pistol.activeSelf == true && currentAmmoClip > minAmmoClip && currentAmmoCapacity >= minAmmoCapacity && weaponSwitch.pistolBought == true && isReloading == false)
         {
             Instantiate(bulletPrefab, bulletSpawner.position, bulletSpawner.rotation);
 
             currentAmmoClip -= 1;
             playerUi.SetPistolAmmo();
         }
+        
 
     }
 

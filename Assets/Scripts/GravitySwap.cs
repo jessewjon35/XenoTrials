@@ -81,7 +81,7 @@ public class GravitySwap : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(playerRotation);
             rb.transform.rotation = rotation;
 
-            Time.timeScale = .5f;
+            //Time.timeScale = .5f;
 
             isUpsideDown = true;
             isGrounded = false;
@@ -98,7 +98,7 @@ public class GravitySwap : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(playerRotation);
             rb.transform.rotation = rotation;
 
-            Time.timeScale = .5f;
+            //Time.timeScale = .5f;
 
             isUpsideDown = false;
             isGrounded = false;

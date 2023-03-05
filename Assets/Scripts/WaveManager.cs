@@ -89,7 +89,7 @@ public class WaveManager : MonoBehaviour
             {
                 //Begin new round
                 WaveCompleted();
-                ActivateSpawners();
+                
 
                 return;
             }
@@ -102,10 +102,12 @@ public class WaveManager : MonoBehaviour
         if (waveCountdown <= 0)
         {
             timeBetweenWavesText.gameObject.SetActive(false);
+
             if (state != SpawnState.Spawning)
             {
                 StartCoroutine(SpawnWave(waves[nextWave]));
             }
+
         }
         else
         {
@@ -113,7 +115,7 @@ public class WaveManager : MonoBehaviour
             waveCountdown -= Time.deltaTime;
         }
 
-         
+        ActivateSpawners();
 
     }
     public void WaveCompleted()
