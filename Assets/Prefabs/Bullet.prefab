@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -136,9 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bf7b4f25bb06e47acb3b5a546a144a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7141433739839070973, guid: cf0d5f195f7d7e341acfb5ebb4d74831, type: 3}
-  playerUi: {fileID: 7141433739839070974, guid: cf0d5f195f7d7e341acfb5ebb4d74831, type: 3}
-  pistol: {fileID: 8414265432125435176, guid: f8617fc83b3b58d45b8127e8ae788fc8, type: 3}
   rb: {fileID: 4681956455489157580}
   speed: 25
   lifeTime: 2

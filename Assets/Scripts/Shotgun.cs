@@ -8,33 +8,39 @@ public class Shotgun : MonoBehaviour
     public PlayerUI playerUi;
     public GunStations gunStations;
     public Enemy enemy;
+    public WeaponSwitch weaponSwitch;
+    public Pistol pistolScript;
+
+    public GameObject pistol;
+    public GameObject shotgun;
+
 
     public GameObject pelletPrefab;
     public Transform shotgunBulletSpawner1;
     public Transform shotgunBulletSpawner2;
     public Transform shotgunBulletSpawner3;
 
-    public float maxAmmoCapacity = 32;
-    public float minAmmoCapacity = 0;
-    public float currentAmmoCapacity;
-    public float maxAmmoClip = 16;
-    public float minAmmoClip = 0;
-    public float currentAmmoClip;
+    public int maxAmmoCapacity = 32;
+    public int minAmmoCapacity = 0;
+    public int currentAmmoCapacity;
+    public int maxAmmoClip = 16;
+    public int minAmmoClip = 0;
+    public int currentAmmoClip;
 
-    public float shotgunCurrencyPerHit = 5f;
+    public int shotgunCurrencyPerHit = 5;
 
     public float reloadTime = .5f;
 
-    public float shotgunDamage = 15;
+    public int shotgunDamage = 15;
 
     public bool isReloading = false;
 
-    public Button shootButton;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        shootButton.gameObject.SetActive(true);
+        
 
         currentAmmoClip = maxAmmoClip;
         currentAmmoCapacity = maxAmmoCapacity;
@@ -76,8 +82,8 @@ public class Shotgun : MonoBehaviour
 
     public void Shoot()
     {
-        Debug.Log("ButtonWorks");
-        if (currentAmmoClip > minAmmoClip && currentAmmoCapacity >= minAmmoCapacity && gunStations.shotgunBought == true && isReloading == false)
+        
+        if (shotgun.activeSelf == true && currentAmmoClip > minAmmoClip && currentAmmoCapacity >= minAmmoCapacity && weaponSwitch.shotgunBought == true && isReloading == false)
         {
             
             Instantiate(pelletPrefab, shotgunBulletSpawner1.position, shotgunBulletSpawner1.rotation);
@@ -88,6 +94,7 @@ public class Shotgun : MonoBehaviour
             currentAmmoClip -= 1;
             playerUi.SetShotgunAmmo();
         }
+        
 
     }
 

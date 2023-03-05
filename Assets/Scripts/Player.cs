@@ -20,8 +20,8 @@ public class Player : MonoBehaviour
     public float minStamina = 0f;
     public float currentStamina;
 
-    public float currentCurrency;
-    private float minCurrency = 0f;
+    public int currentCurrency;
+    private int minCurrency = 0;
 
     public Slider healthSlider;
     public Slider StaminaSlider;

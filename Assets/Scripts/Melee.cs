@@ -14,7 +14,7 @@ public class Melee : MonoBehaviour
       
     public float meleeRange = .5f;
     //public float dropChance = .75f;
-    public float currencyPerMelee = 15f;
+    public int currencyPerMelee = 15;
 
     public Transform meleepoint;
     
