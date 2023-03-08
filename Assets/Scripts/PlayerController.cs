@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public GameObject pelletSpawn1;
     public GameObject pelletSpawn2;
     public GameObject pelletSpawn3;
+    public ParticleSystem movementParticles;
+    public ParticleSystem jumpingparticles;
 
     public Joystick joystick;
 
@@ -90,7 +92,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
+
+        if (gravitySwap.isGrounded == false)
+        {
+            movementParticles.Stop();
+        }
         
         
         
@@ -191,7 +197,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.transform.Translate(new Vector2(horizontalMovement * movementSpeed * Time.deltaTime, 0));
 
-        
+        movementParticles.Play();
     }
 
     public void FlipPlayer()
@@ -202,10 +208,13 @@ public class PlayerController : MonoBehaviour
         pelletSpawn2.transform.Rotate(0f, 180f, 0f);
         pelletSpawn3.transform.Rotate(0f, 180f, 0f);
 
-    Vector3 theScale = transform.localScale;
+        movementParticles.transform.Rotate(0f, 180f, 0f);
+
+        Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
 
+        
         
     }
 
@@ -218,6 +227,8 @@ public class PlayerController : MonoBehaviour
             
             
             rb.velocity = new Vector2(0, jumpForce);
+
+            jumpingparticles.Play();
 
             playerScript.currentStamina -= jumpStaminaUsage;
             playerUi.SetStamina();
@@ -232,6 +243,9 @@ public class PlayerController : MonoBehaviour
         {
             
             rb.velocity = new Vector2(0, -jumpForce);
+
+            jumpingparticles.Play();
+
             playerScript.currentStamina -= jumpStaminaUsage;
             playerUi.SetStamina();
 

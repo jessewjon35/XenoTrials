@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour
     public GameObject bulletPrefab;
     //private GameObject enemyClone;
     //public GameObject currency;
-    
+
+    public ParticleSystem enemyDeathEffect;
 
     private Transform target;
     
@@ -101,12 +102,15 @@ public class Enemy : MonoBehaviour
         if(enemy1CurrentHealth <= enemy1MinHealth)
         {
             Destroy(gameObject);
+
+            Instantiate(enemyDeathEffect, transform.position, transform.rotation);
+
             //DropRate();
             
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
@@ -148,9 +152,52 @@ public class Enemy : MonoBehaviour
             
         }
 
+    }*/
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (gameObject.name == "Enemy(Clone)")
+            {
+                Destroy(gameObject);
+
+            }
+        }
+
+
+        if (collision.gameObject.tag == "Bullet")
+        {
+            if (gameObject.name == "Enemy(Clone)")
+            {
+                enemy1CurrentHealth -= pistol.pistolDamage;
+                playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
+
+                Debug.Log(enemy1CurrentHealth);
+                KillEnemy();
+
+            }
+
+
+
+        }
+
+
+        if (collision.gameObject.tag == "Pellets")
+        {
+            if (gameObject.name == "Enemy(Clone)")
+            {
+                enemy1CurrentHealth -= shotgun.shotgunDamage;
+                playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
+
+                Debug.Log(enemy1CurrentHealth);
+                KillEnemy();
+            }
+
+        }
     }
 
-   
+
 
 
 

@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
         playerUi.SetStamina();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         
         
@@ -115,6 +115,19 @@ public class Player : MonoBehaviour
         }
         
         
+    }*/
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+
+            currentHealth -= enemy.enemyCollisionDamage;
+            playerUi.SetHealth();
+
+            Debug.Log(currentHealth);
+
+        }
     }
 
 

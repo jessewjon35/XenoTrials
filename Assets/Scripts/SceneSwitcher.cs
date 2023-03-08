@@ -36,11 +36,13 @@ public class SceneSwitcher : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("Game");
+        Time.timeScale = 1;
     }
 
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
 
 }

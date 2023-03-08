@@ -18,6 +18,8 @@ public class Pistol : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawner;
 
+    public ParticleSystem pistolShootingEffect;
+
     public int maxAmmoCapacity = 32;
     public int minAmmoCapacity = 0;
     public int currentAmmoCapacity;
@@ -87,6 +89,8 @@ public class Pistol : MonoBehaviour
         if (pistol.activeSelf == true && currentAmmoClip > minAmmoClip && currentAmmoCapacity >= minAmmoCapacity && weaponSwitch.pistolBought == true && isReloading == false)
         {
             Instantiate(bulletPrefab, bulletSpawner.position, bulletSpawner.rotation);
+
+            pistolShootingEffect.Play();
 
             currentAmmoClip -= 1;
             playerUi.SetPistolAmmo();

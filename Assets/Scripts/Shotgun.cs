@@ -20,6 +20,8 @@ public class Shotgun : MonoBehaviour
     public Transform shotgunBulletSpawner2;
     public Transform shotgunBulletSpawner3;
 
+    public ParticleSystem shotgunShootingEffect;
+
     public int maxAmmoCapacity = 32;
     public int minAmmoCapacity = 0;
     public int currentAmmoCapacity;
@@ -89,7 +91,8 @@ public class Shotgun : MonoBehaviour
             Instantiate(pelletPrefab, shotgunBulletSpawner1.position, shotgunBulletSpawner1.rotation);
             Instantiate(pelletPrefab, shotgunBulletSpawner2.position, shotgunBulletSpawner2.rotation);
             Instantiate(pelletPrefab, shotgunBulletSpawner3.position, shotgunBulletSpawner3.rotation);
-            
+
+            shotgunShootingEffect.Play();
 
             currentAmmoClip -= 1;
             playerUi.SetShotgunAmmo();
