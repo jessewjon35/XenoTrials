@@ -11,6 +11,8 @@ public class Melee : MonoBehaviour
     private GameObject enemyClone;
 
     public GameObject currency;
+
+    public ParticleSystem enemyDeathEffect;
       
     public float meleeRange = .5f;
     //public float dropChance = .75f;
@@ -50,8 +52,10 @@ public class Melee : MonoBehaviour
             Destroy(obj: enemyClone);
 
             playerScript.currentCurrency += currencyPerMelee;
-            
 
+            
+            //enemyDeathEffect.Play();
+            
 
 
         }

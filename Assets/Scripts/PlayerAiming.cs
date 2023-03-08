@@ -7,25 +7,63 @@ public class PlayerAiming : MonoBehaviour
     [SerializeField]
     private PlayerController playerController;
 
-    public Vector2 rayStart; 
+    
 
-    public GameObject player;
+    //private Vector2 rayStart;
+    //private Vector2 rayDirection;
 
-    public float rayDistance;
+    //private GameObject potentialTarget;
+    //private Transform closestTarget;
+
+    //private float rayDistance;
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        
+
+        //rayStart = transform.position;
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(rayStart, playerController.playerDir, rayDistance);
+
+
+        
 
 
     }
+
+    public void FindClosestEnemy()
+    {
+        //potentialTarget = GameObject.FindWithTag("Enemy");
+        //closestTarget = null;
+
+        
+
+    }
+
+    /*Transform GetClosestEnemy(Transform[] enemies)
+    {
+        Transform bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        foreach (Transform potentialTarget in enemies)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if(dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
+            }
+        }
+        return bestTarget;
+    }*/
 
     
     

@@ -11,13 +11,14 @@ public class GravitySwap : MonoBehaviour
     
 
     Vector3 shake;
-    private bool isGrounded;
+    public bool isGrounded;
     public bool isUpsideDown;
 
     //private float shakeWaitTime = .7f;
     //private float minWaitTime = 0f;
     private float gravityStamina = 15f;
 
+    public ParticleSystem landingParticles;
     
 
     // Start is called before the first frame update
@@ -172,7 +173,10 @@ public class GravitySwap : MonoBehaviour
         if (collision.gameObject.tag == "floor")
         {
             isGrounded = true;
-            Time.timeScale = 1f;
+
+            landingParticles.Play();
+
+            //Time.timeScale = 1f;
 
         }
     }
