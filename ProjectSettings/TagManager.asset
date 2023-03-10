@@ -18,6 +18,8 @@ TagManager:
   - Door
   - pistol
   - shotgun
+  - movementTutorial
+  - jumpTutorial
   layers:
   - Default
   - TransparentFX

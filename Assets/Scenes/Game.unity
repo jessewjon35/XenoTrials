@@ -21809,7 +21809,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573489277}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.4, y: -2.1, z: 1}
+  m_LocalPosition: {x: -2.4, y: -2.98, z: 1}
   m_LocalScale: {x: 0.5, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21917,7 +21917,7 @@ MonoBehaviour:
   maxStamina: 100
   minStamina: 0
   currentStamina: 100
-  currentCurrency: 200
+  currentCurrency: 0
   healthSlider: {fileID: 1129872286}
   StaminaSlider: {fileID: 444265848}
   gameOverPanel: {fileID: 8854305860054847265}
@@ -21975,12 +21975,15 @@ MonoBehaviour:
   currency: {fileID: 2469095561357570392, guid: 385ffafb20095d84a81b6ac679eca078, type: 3}
   enemyDeathEffect: {fileID: 5739495355286361147, guid: b48b79dd102ee14429d255f12b35e6e0, type: 3}
   meleeRange: 0.82
+  timeBetweenMelee: 0
+  meleeStartTime: 1
   currencyPerMelee: 15
   meleepoint: {fileID: 1725221498}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
   meleeButtonPressed: 0
+  meleeAllowed: 0
 --- !u!114 &1573489293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30831,6 +30834,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c805817d40d87d49b210b984fc9ecb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  titleText: {fileID: 0}
+  playButton: {fileID: 0}
+  optionsButton: {fileID: 0}
+  creditsButton: {fileID: 0}
 --- !u!1 &2005432472
 GameObject:
   m_ObjectHideFlags: 0
@@ -41368,7 +41375,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'T- 10 Seconds to Next Wave!
+  m_text: 'T- 10 Seconds until
 
 '
   m_isRightToLeft: 0

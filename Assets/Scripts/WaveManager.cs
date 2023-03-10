@@ -19,7 +19,7 @@ public class WaveManager : MonoBehaviour
         public float spawnRate;
     }
 
-    
+    //public Wave wave;
     public Wave[] waves;
     private int nextWave = 0;
     //private int previousWave;
@@ -58,7 +58,9 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
+        currentWave = nextWave + 1;
 
+        //timeBetweenWavesText.text = "T- 10 Seconds Until " + wave.name;
         timeBetweenWavesText.gameObject.SetActive(false);
 
         spawner3Active = false;
@@ -74,7 +76,7 @@ public class WaveManager : MonoBehaviour
             Debug.LogError("No Spawn Points referenced");
         }
 
-        currentWave = nextWave - 1;
+        
         //previousWave = currentWave - 1;
 
         waveCountdown = timeBetweenWaves;
@@ -82,7 +84,8 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        
+        currentWave = nextWave + 1;
+
         if (state == SpawnState.Waiting)
         {
             if(!EnemyisAlive())
@@ -112,6 +115,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             timeBetweenWavesText.gameObject.SetActive(true);
+            timeBetweenWavesText.text = "T- 10 Seconds Until Wave " + currentWave;
             waveCountdown -= Time.deltaTime;
         }
 

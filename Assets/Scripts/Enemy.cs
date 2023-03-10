@@ -10,14 +10,17 @@ public class Enemy : MonoBehaviour
 
     public GameObject enemy;
     public GameObject bulletPrefab;
+
+    public GameObject enemyProjectile;
+    public float timeBetweenShots;
+    public float startTimeBetweenShots;
+    
     //private GameObject enemyClone;
     //public GameObject currency;
 
     public ParticleSystem enemyDeathEffect;
 
     private Transform target;
-    
-
 
     //private int minDistance = 1;
     //private int maxDistance = 10;
@@ -38,16 +41,16 @@ public class Enemy : MonoBehaviour
      public Player playerScript;    
      public Pistol pistol;
      public Shotgun shotgun;
-   //private PlayerUI playerUi;
+    //private PlayerUI playerUi;
 
-
+    public Renderer rd;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        rd = GetComponent<Renderer>();
         //rb = enemy.GetComponent<Rigidbody2D>();
 
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -58,6 +61,8 @@ public class Enemy : MonoBehaviour
         //playerUi = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerUI>();
 
         enemy1CurrentHealth = enemy1MaxHealth;
+
+        timeBetweenShots = startTimeBetweenShots;
     }
 
     // Update is called once per frame
@@ -72,7 +77,15 @@ public class Enemy : MonoBehaviour
             enemy1CurrentHealth = enemy1MinHealth;
         }
         
-        
+        if(timeBetweenShots <= 0 && rd.isVisible == true)
+        {
+            Instantiate(enemyProjectile, transform.position, Quaternion.identity);
+            timeBetweenShots = startTimeBetweenShots;
+        }
+        else
+        {
+            timeBetweenShots -= Time.deltaTime;
+        }
 
     }
 

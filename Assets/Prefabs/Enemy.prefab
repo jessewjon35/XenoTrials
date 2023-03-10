@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 4361683923147727776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.53, y: 2.26, z: 0}
-  m_LocalScale: {x: 0.46494752, y: 0.46494752, z: 0.61993}
+  m_LocalScale: {x: 0.49372777, y: 0.49372777, z: 0.65830374}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 615552074373655703}
@@ -105,9 +105,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0067223785, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.5873879
 --- !u!114 &4361683923147727791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +122,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 4361683923147727776}
   bulletPrefab: {fileID: 3286754354708316099, guid: 1bf1b4e3459d69549a4da9792fa53e9b, type: 3}
+  enemyProjectile: {fileID: 2210290484500053390, guid: d105b3b998bea9742b4f799baf1ca9cd, type: 3}
+  timeBetweenShots: 0
+  startTimeBetweenShots: 2.5
   enemyDeathEffect: {fileID: 5739495355286361147, guid: b48b79dd102ee14429d255f12b35e6e0, type: 3}
   enemySpeed: 5
   enemyCollisionDamage: 5
@@ -129,6 +132,7 @@ MonoBehaviour:
   playerScript: {fileID: 0}
   pistol: {fileID: 0}
   shotgun: {fileID: 0}
+  rd: {fileID: 4361683923147727789}
 --- !u!114 &1138389485334619999
 MonoBehaviour:
   m_ObjectHideFlags: 0

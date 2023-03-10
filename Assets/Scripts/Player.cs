@@ -58,6 +58,10 @@ public class Player : MonoBehaviour
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
         }
+        else
+        {
+            Time.timeScale = 1;
+        }
 
         if(currentHealth >= maxHealth)
         {
