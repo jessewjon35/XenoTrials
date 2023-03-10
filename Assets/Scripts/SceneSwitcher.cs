@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
+    public TMP_Text titleText;
+    public Button playButton;
+    public Button optionsButton;
+    public Button creditsButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +26,14 @@ public class SceneSwitcher : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("Game");
+
+        titleText.gameObject.SetActive(false);
+        playButton.gameObject.SetActive(false);
+        optionsButton.gameObject.SetActive(false);
+        creditsButton.gameObject.SetActive(false);
+
+
+
     }
 
     public void Options()
@@ -35,14 +48,15 @@ public class SceneSwitcher : MonoBehaviour
 
     public void Restart()
     {
+       
         SceneManager.LoadScene("Game");
-        Time.timeScale = 1;
+        
     }
 
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
-        Time.timeScale = 1;
+        
     }
 
 }

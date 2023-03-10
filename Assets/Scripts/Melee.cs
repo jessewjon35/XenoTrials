@@ -15,6 +15,9 @@ public class Melee : MonoBehaviour
     public ParticleSystem enemyDeathEffect;
       
     public float meleeRange = .5f;
+    public float timeBetweenMelee;
+    public float meleeStartTime;
+    
     //public float dropChance = .75f;
     public int currencyPerMelee = 15;
 
@@ -23,12 +26,16 @@ public class Melee : MonoBehaviour
     public LayerMask enemyLayers;
 
     public bool meleeButtonPressed;
+    public bool meleeAllowed;
 
 
     // Start is called before the first frame update
     void Start()
     {
         meleeButtonPressed = false;
+        meleeAllowed = true;
+
+        timeBetweenMelee = meleeStartTime;
         
     }
 
@@ -36,31 +43,50 @@ public class Melee : MonoBehaviour
     void Update()
     {
         enemyClone = GameObject.FindWithTag("Enemy");
+
+        if(timeBetweenMelee <= 0)
+        {
+            meleeAllowed = true;
+        }
+        else
+        {
+            meleeAllowed = false;
+            timeBetweenMelee -= Time.deltaTime;
+        }
     }
 
     public void MeleeAttack()
-    {       
-       
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleepoint.position, meleeRange, enemyLayers);
-        
-        foreach(Collider2D enemy in hitEnemies)
+    {
+        if (meleeAllowed == true)
         {
-            Debug.Log("Attack hit!");
+            timeBetweenMelee = meleeStartTime;
+            meleeAllowed = false;
 
-            //DropRate();
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleepoint.position, meleeRange, enemyLayers);
+        
+            foreach(Collider2D enemy in hitEnemies)
+            {
+                Debug.Log("Attack hit!");
 
-            Destroy(obj: enemyClone);
+                //DropRate();
 
-            playerScript.currentCurrency += currencyPerMelee;
+                Destroy(obj: enemyClone);
 
-            
-            //enemyDeathEffect.Play();
-            
+                playerScript.currentCurrency += currencyPerMelee;
 
 
+                //enemyDeathEffect.Play();
+
+                
+                
+
+            }
         }
 
-    }
+        
+      
+
+}
 
     private void OnDrawGizmosSelected()
     {
