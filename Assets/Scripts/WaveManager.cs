@@ -27,10 +27,10 @@ public class WaveManager : MonoBehaviour
     //private int waveMultiplier = 2;
    
 
-    public GameObject roomThreeVCam;
-    public GameObject roomFiveVCam;
-    public GameObject roomSixVCam;
-    public GameObject roomSevenVCam;
+    //public GameObject roomThreeVCam;
+    //public GameObject roomFiveVCam;
+    //public GameObject roomSixVCam;
+    //public GameObject roomSevenVCam;
 
     //public Transform[] spawnPoints;
     //public List<Transform> spawnPoints;
@@ -75,9 +75,6 @@ public class WaveManager : MonoBehaviour
         {
             Debug.LogError("No Spawn Points referenced");
         }
-
-        
-        //previousWave = currentWave - 1;
 
         waveCountdown = timeBetweenWaves;
     }
@@ -183,16 +180,17 @@ public class WaveManager : MonoBehaviour
 
     void SpawnEnemy(Transform enemy)
     {
+        
         //Spawn enemy
         Debug.Log("Spawning: " + enemy.name);
         Transform sp = spawnPoints[Random.Range(0, spawnPoints.Count)];
         Instantiate(enemy, sp.position, sp.rotation);
-        
+       
     }
 
     public void ActivateSpawners()
     {
-        if(roomThreeVCam.activeSelf == true && spawner3Active == false)
+        /*if(roomThreeVCam.activeSelf == true && spawner3Active == false)
         {
             spawnPoints.Add(roomThreeSpawnPoint);
             spawner3Active = true;
@@ -214,7 +212,7 @@ public class WaveManager : MonoBehaviour
         {
             spawnPoints.Add(roomSevenSpawnPoint);
             spawner7Active = true;
-        }
+        }*/
     }
     
 

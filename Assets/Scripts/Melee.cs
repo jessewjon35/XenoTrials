@@ -6,33 +6,34 @@ public class Melee : MonoBehaviour
 {
     public PlayerUI playerUi;
     public Player playerScript;
-    
+    public Enemy enemyScript;
+    public EnemyProjectile enemyProjectile;
 
-    private GameObject enemyClone;
-
+    public GameObject starterMelee;
     public GameObject currency;
+    
 
     public ParticleSystem enemyDeathEffect;
-      
-    public float meleeRange = .5f;
+    
     public float timeBetweenMelee;
     public float meleeStartTime;
-    
-    //public float dropChance = .75f;
+
+    public int meleeDamage = 25;
     public int currencyPerMelee = 15;
 
-    public Transform meleepoint;
-    
-    public LayerMask enemyLayers;
-
-    public bool meleeButtonPressed;
     public bool meleeAllowed;
-
+   
+    public CircleCollider2D starterMeleeCol;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        meleeButtonPressed = false;
+        
+       
+        starterMeleeCol.enabled = false;
+
+        
         meleeAllowed = true;
 
         timeBetweenMelee = meleeStartTime;
@@ -42,58 +43,46 @@ public class Melee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enemyClone = GameObject.FindWithTag("Enemy");
+       
 
         if(timeBetweenMelee <= 0)
         {
             meleeAllowed = true;
+            starterMeleeCol.enabled = false;
         }
         else
         {
             meleeAllowed = false;
+            starterMeleeCol.enabled = true;
             timeBetweenMelee -= Time.deltaTime;
         }
     }
 
     public void MeleeAttack()
     {
+
+
         if (meleeAllowed == true)
         {
-            timeBetweenMelee = meleeStartTime;
-            meleeAllowed = false;
-
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleepoint.position, meleeRange, enemyLayers);
-        
-            foreach(Collider2D enemy in hitEnemies)
-            {
-                Debug.Log("Attack hit!");
-
-                //DropRate();
-
-                Destroy(obj: enemyClone);
-
-                playerScript.currentCurrency += currencyPerMelee;
-
-
-                //enemyDeathEffect.Play();
-
-                
-                
-
-            }
+            timeBetweenMelee = meleeStartTime;                  
         }
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         
-      
+    }
+    
 
-}
 
-    private void OnDrawGizmosSelected()
+
+    /*private void OnDrawGizmosSelected()
     {
         if (meleepoint == null)
             return;
         Gizmos.DrawWireSphere(meleepoint.position, meleeRange);
-    }
+    }*/
 
     /*public void DropRate()
     {

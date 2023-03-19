@@ -10,18 +10,16 @@ public class PlayerController : MonoBehaviour
 
     public GameObject player;
     public GameObject enemy;
-    public GameObject bulletSpawn;
-    public GameObject pelletSpawn1;
-    public GameObject pelletSpawn2;
-    public GameObject pelletSpawn3;
+    public GameObject starterMelee;
     public ParticleSystem movementParticles;
-    public ParticleSystem jumpingparticles;
+    public ParticleSystem jumpingParticles;
+    public ParticleSystem landingParticles;
 
-    public Joystick joystick;
+    //public Joystick joystick;
 
     private float screenWidth;
-    private float movementSpeed = 7.5f;
-    private float jumpForce = 14;
+    public float movementSpeed = 10f;
+    private float jumpForce = 15;
     private float jumpStaminaUsage = 15;
 
     
@@ -31,16 +29,18 @@ public class PlayerController : MonoBehaviour
     public GravitySwap gravitySwap;
     
 
-    public bool isJumping;
+    //public bool isJumping;
     public bool isTouching;
     public bool isFacingRight;
+    public bool isMovingRight;
+    public bool isGroundedAfterJumping;
     
 
 
 
     private void Awake()
     {
-        //Input.multiTouchEnabled = false;
+        Input.multiTouchEnabled = true;
     }
 
     // Start is called before the first frame update
@@ -50,14 +50,14 @@ public class PlayerController : MonoBehaviour
         screenWidth = Screen.width;
         rb = player.GetComponent<Rigidbody2D>();
 
-        isJumping = false;
+        //isJumping = false;
         isTouching = false;
-
         isFacingRight = true;
+        isGroundedAfterJumping = true;
 
         //bulletSpawn.transform.Rotate(0f, 0f, 0f);
 
-
+        
 
 
 
@@ -66,21 +66,21 @@ public class PlayerController : MonoBehaviour
     {
         
 
-        if(isFacingRight == false && joystick.Horizontal > 0f && gravitySwap.isUpsideDown == false)
+        if(isMovingRight == false && isFacingRight && gravitySwap.isUpsideDown == false)
         {
             FlipPlayer();
         }
-        else if(isFacingRight == true && joystick.Horizontal < 0f && gravitySwap.isUpsideDown == false)
+        else if(isMovingRight ==true && !isFacingRight && gravitySwap.isUpsideDown == false)
         {
             FlipPlayer();
         }
 
-        if (isFacingRight == false && joystick.Horizontal > 0f && gravitySwap.isUpsideDown == true)
+        else if (isMovingRight == false && isFacingRight && gravitySwap.isUpsideDown == true)
         {
             
             FlipPlayer();
         }
-        else if (isFacingRight == true && joystick.Horizontal < 0f && gravitySwap.isUpsideDown == true)
+        else if (isMovingRight == true && !isFacingRight && gravitySwap.isUpsideDown == true)
         {
             
             FlipPlayer();
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
 
-        if (gravitySwap.isGrounded == false)
+        if (gravitySwap.isGroundedAfterGravity == false && isGroundedAfterJumping == false)
         {
             movementParticles.Stop();
         }
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     public void PlayerMovement()
     {
-        /* int i = 0;
+         int i = 0;
 
 
          //loop over every touch found
@@ -115,41 +115,58 @@ public class PlayerController : MonoBehaviour
 
              if (Input.GetTouch(i).position.x > screenWidth / 3 * 2 && gravitySwap.isUpsideDown == false)
              {
-                 //move right on ground
-                 MovePlayer(1.0f);
+                
+                //move right on ground
+                MovePlayer(1.0f);
                  isTouching = true;
-
-             }
+                isMovingRight = true;
+                
+            }
 
              else if (Input.GetTouch(i).position.x < screenWidth / 3 && gravitySwap.isUpsideDown == false)
              {
+                
                  //move left on ground
                  MovePlayer(-1.0f);
                  isTouching = true;
-
-             }
+                isMovingRight = false;
+                
+            }
 
              else if (Input.GetTouch(i).position.x > screenWidth / 3 * 2 && gravitySwap.isUpsideDown == true)
              {
-                 //move right on ceiling
-                 MovePlayer(-1.0f);
+                //move right on ceiling
+                
+                MovePlayer(1.0f);
                  isTouching = true;
+                isMovingRight = true;
+                
 
-             }
+            }
 
              else if (Input.GetTouch(i).position.x < screenWidth / 3 && gravitySwap.isUpsideDown == true)
              {
-                 //move left on ceiling
-                 MovePlayer(1.0f);
+                //move left on ceiling
+                
+                 MovePlayer(-1.0f);
                  isTouching = true;
+                isMovingRight = false;
+                
 
-             }
-
+            }
+            
+            //isTouching = false;
 
              i++;
-         }*/
 
-        if (joystick.Horizontal > 0f && gravitySwap.isUpsideDown == false)
+            if(i >= 2 && gravitySwap.isGroundedAfterGravity == true)
+            {
+                gravitySwap.GravityCharge();
+            }
+
+         }
+
+        /*if (joystick.Horizontal > 0f && gravitySwap.isUpsideDown == false)
         {
             //FlipPlayer();
             //move right on ground
@@ -188,10 +205,12 @@ public class PlayerController : MonoBehaviour
 
 
             isFacingRight = false;
-        }
+        }*/
 
 
     }
+
+    
 
     private void MovePlayer(float horizontalMovement)
     {
@@ -203,32 +222,30 @@ public class PlayerController : MonoBehaviour
     public void FlipPlayer()
     {
         isFacingRight = !isFacingRight;
-        bulletSpawn.transform.Rotate(0f, 180f, 0f);
-        pelletSpawn1.transform.Rotate(0f, 180f, 0f);
-        pelletSpawn2.transform.Rotate(0f, 180f, 0f);
-        pelletSpawn3.transform.Rotate(0f, 180f, 0f);
+
+        starterMelee.transform.Rotate(0f, 180f, 0f);
 
         movementParticles.transform.Rotate(0f, 180f, 0f);
 
-        Vector3 theScale = transform.localScale;
+        Vector3 theScale = gameObject.transform.localScale;
         theScale.x *= -1;
-        transform.localScale = theScale;
+        gameObject.transform.localScale = theScale;
 
         
-        
+
     }
 
     public void Jump()
     {
 
 
-        if (isJumping == false && gravitySwap.isUpsideDown == false && playerScript.currentStamina >= jumpStaminaUsage)
+        if (isGroundedAfterJumping == true && gravitySwap.isUpsideDown == false && playerScript.currentStamina >= jumpStaminaUsage)
         {
             
             
             rb.velocity = new Vector2(0, jumpForce);
 
-            jumpingparticles.Play();
+            jumpingParticles.Play();
 
             playerScript.currentStamina -= jumpStaminaUsage;
             playerUi.SetStamina();
@@ -239,12 +256,12 @@ public class PlayerController : MonoBehaviour
 
             
         }
-        else if (isJumping == false && gravitySwap.isUpsideDown == true && playerScript.currentStamina >= jumpStaminaUsage)
+        else if (isGroundedAfterJumping == true && gravitySwap.isUpsideDown == true && playerScript.currentStamina >= jumpStaminaUsage)
         {
-            
+           
             rb.velocity = new Vector2(0, -jumpForce);
 
-            jumpingparticles.Play();
+            jumpingParticles.Play();
 
             playerScript.currentStamina -= jumpStaminaUsage;
             playerUi.SetStamina();
@@ -262,17 +279,21 @@ public class PlayerController : MonoBehaviour
     {
         
         yield return new WaitForSeconds(.3f);
-        isJumping = true;
+        isGroundedAfterJumping = false;
         
     }
 
     IEnumerator WaitBeforeJump()
     {
+        
         yield return new WaitForSeconds(1f);
-        isJumping = false;
+        isGroundedAfterJumping = true;
+
     }
 
-       
+    
 
-   
+
+
+
 }
