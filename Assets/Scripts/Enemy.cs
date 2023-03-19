@@ -10,13 +10,15 @@ public class Enemy : MonoBehaviour
 
     public GameObject enemy;
     public GameObject bulletPrefab;
-
+    public GameObject player;
     public GameObject enemyProjectile;
+    public GameObject sealer;
+
     public float timeBetweenShots;
     public float startTimeBetweenShots;
     
     //private GameObject enemyClone;
-    //public GameObject currency;
+    
 
     public ParticleSystem enemyDeathEffect;
 
@@ -27,24 +29,19 @@ public class Enemy : MonoBehaviour
 
     public int enemySpeed = 5;
     public int enemyCollisionDamage = 5;
-    //public float dropChance = .75f;
-    
-    
+    public float dropChance = .75f;
 
-    public int enemy1CurrentHealth;
-    private int enemy1MinHealth = 0;
-    private int enemy1MaxHealth = 50;
-    
-   
-
-    
+     public EnemyHealth enemyHealth;
      public Player playerScript;    
      public Pistol pistol;
      public Shotgun shotgun;
+     public EnemyProjectile enemyProjectileScript;
+     public Melee melee;
     //private PlayerUI playerUi;
 
     public Renderer rd;
-
+    private BoxCollider2D playerCollider;
+    private CircleCollider2D starterMeleeCollider;
 
 
     // Start is called before the first frame update
@@ -54,28 +51,34 @@ public class Enemy : MonoBehaviour
         //rb = enemy.GetComponent<Rigidbody2D>();
 
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player");
 
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         pistol = GameObject.FindGameObjectWithTag("Player").GetComponent<Pistol>();
         shotgun = GameObject.FindGameObjectWithTag("Player").GetComponent<Shotgun>();
+        melee = GameObject.FindGameObjectWithTag("Melee").GetComponent<Melee>();
         //playerUi = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerUI>();
 
-        enemy1CurrentHealth = enemy1MaxHealth;
+        playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+        starterMeleeCollider = GameObject.FindGameObjectWithTag("Melee").GetComponent<CircleCollider2D>();
+
+        
 
         timeBetweenShots = startTimeBetweenShots;
+
+        
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
 
         //EnemyMovement();
-        
-        if(enemy1CurrentHealth <= enemy1MinHealth)
-        {
-            enemy1CurrentHealth = enemy1MinHealth;
-        }
+
+        /*
         
         if(timeBetweenShots <= 0 && rd.isVisible == true)
         {
@@ -85,91 +88,55 @@ public class Enemy : MonoBehaviour
         else
         {
             timeBetweenShots -= Time.deltaTime;
+        }*/
+
+        /*RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 100f);
+        Debug.DrawRay(hit.transform.position, transform.right, Color.red);*/
+        
+        if(timeBetweenShots <= 0)
+        {
+            Instantiate(enemyProjectile, transform.position, Quaternion.identity);
+            timeBetweenShots = startTimeBetweenShots;
+        }
+        else
+        {
+            timeBetweenShots -= Time.deltaTime;
         }
 
+        
     }
 
-    
-
-    /*public void EnemyMovement()
+    private void FixedUpdate()
     {
-       
         
-        transform.position = Vector2.MoveTowards(transform.position, target.position, enemySpeed * Time.deltaTime);
-        
-        
-        
-    }*/
+    }
 
 
-    /*public void DropRate()
+    public void DropRate()
     {
         if (Random.Range(0f, 1f) <= dropChance)
         {
-            Instantiate(currency, this.transform.position, Quaternion.identity);
+            Instantiate(sealer, this.transform.position, Quaternion.identity);
         }
-    }*/
+    }
 
     public void KillEnemy()
     {
-        if(enemy1CurrentHealth <= enemy1MinHealth)
+        if(enemyHealth.enemy1CurrentHealth <= enemyHealth.enemy1MinHealth)
         {
             Destroy(gameObject);
 
-            Instantiate(enemyDeathEffect, transform.position, transform.rotation);
+            //Instantiate(enemyDeathEffect, transform.position, transform.rotation);
 
-            //DropRate();
+            DropRate();
             
         }
     }
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            if (gameObject.name == "Enemy(Clone)")
-            {
-                Destroy(gameObject);
-
-            }
-        }
-
-            
-        if(collision.gameObject.tag == "Bullet")
-        {
-            if(gameObject.name == "Enemy(Clone)")
-            { 
-                enemy1CurrentHealth -= pistol.pistolDamage;
-                playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
-                
-                Debug.Log(enemy1CurrentHealth);
-                KillEnemy();
-
-            }
-  
-            
-
-        }
-
-
-        if (collision.gameObject.tag == "Pellets")
-        {
-            if(gameObject.name == "Enemy(Clone)")
-            {
-                enemy1CurrentHealth -= shotgun.shotgunDamage;
-                playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
-
-                Debug.Log(enemy1CurrentHealth);
-                KillEnemy();
-            }  
-            
-        }
-
-    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.collider == playerCollider)
         {
             if (gameObject.name == "Enemy(Clone)")
             {
@@ -178,36 +145,16 @@ public class Enemy : MonoBehaviour
             }
         }
 
-
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.collider == starterMeleeCollider)
         {
             if (gameObject.name == "Enemy(Clone)")
             {
-                enemy1CurrentHealth -= pistol.pistolDamage;
-                playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
-
-                Debug.Log(enemy1CurrentHealth);
-                KillEnemy();
-
-            }
-
-
-
-        }
-
-
-        if (collision.gameObject.tag == "Pellets")
-        {
-            if (gameObject.name == "Enemy(Clone)")
-            {
-                enemy1CurrentHealth -= shotgun.shotgunDamage;
-                playerScript.currentCurrency += pistol.pistolCurrencyPerHit;
-
-                Debug.Log(enemy1CurrentHealth);
-                KillEnemy();
+                enemyHealth.enemy1CurrentHealth -= melee.meleeDamage;
+                playerScript.currentCurrency += melee.currencyPerMelee;
             }
 
         }
+
     }
 
 

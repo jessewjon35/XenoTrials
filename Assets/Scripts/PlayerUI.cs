@@ -6,18 +6,24 @@ using TMPro;
 
 public class PlayerUI : MonoBehaviour
 {
-    
+
     public Player player;
     public Pistol pistol;
     public Shotgun shotgun;
     public Enemy enemy;
+    public GravitySwap gravitySwap;
 
     public Slider healthSlider;
     public Slider staminaSlider;
+    public Slider gravityChargeSlider;
 
     public TMP_Text currencyText;
     public TMP_Text pistolAmmoText;
     public TMP_Text shotgunAmmoText;
+    public TMP_Text healthText;
+    public TMP_Text staminaText;
+    public TMP_Text sealerText;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +32,9 @@ public class PlayerUI : MonoBehaviour
         staminaSlider.value = player.currentStamina;
 
         currencyText.text = "$ " + player.currentCurrency.ToString();
-
-        
-        
+        healthText.text = player.currentHealth.ToString();
+        staminaText.text = player.currentStamina.ToString();
+        sealerText.text = "Sealer: " + player.currentSealer.ToString();
 
         pistolAmmoText.enabled = false;
         shotgunAmmoText.enabled = false;
@@ -36,7 +42,7 @@ public class PlayerUI : MonoBehaviour
         SetPistolAmmo();
         SetShotgunAmmo();
 
-       
+
 
     }
 
@@ -44,26 +50,27 @@ public class PlayerUI : MonoBehaviour
     void Update()
     {
 
-        
-        
+
+
 
     }
 
     public void SetMaxHealth()
     {
         healthSlider.maxValue = player.maxHealth;
-        
+
     }
 
     public void SetHealth()
     {
         healthSlider.value = player.currentHealth;
+
     }
 
     public void SetMaxStamina()
     {
         staminaSlider.maxValue = player.maxStamina;
-       
+
     }
 
     public void SetStamina()
@@ -74,8 +81,8 @@ public class PlayerUI : MonoBehaviour
     public void SetCurrency()
     {
         currencyText.text = "$ " + player.currentCurrency.ToString();
-        PlayerPrefs.SetFloat("Currency", player.currentCurrency);
-        
+        PlayerPrefs.SetInt("Currency", player.currentCurrency);
+
     }
 
     public void ResetCurrency()
@@ -85,7 +92,7 @@ public class PlayerUI : MonoBehaviour
 
 
     public void SetPistolAmmo()
-    {     
+    {
         pistolAmmoText.text = "Ammo: " + pistol.currentAmmoClip.ToString() + " / " + pistol.currentAmmoCapacity.ToString();
         PlayerPrefs.SetFloat("PistolAmmoClip", pistol.currentAmmoClip);
         PlayerPrefs.SetFloat("PistolAmmoCapacity", pistol.currentAmmoCapacity);
@@ -107,6 +114,23 @@ public class PlayerUI : MonoBehaviour
 
         PlayerPrefs.DeleteKey("ShotgunAmmoClip");
         PlayerPrefs.DeleteKey("ShotgunAmmoCapacity");
+    }
+
+    public void SetGravityCharge()
+    {
+        gravityChargeSlider.value = gravitySwap.currentGravityCharge;
+    }
+
+    public void SetSealer()
+    {
+        sealerText.text = "Sealer: " + player.currentSealer.ToString();
+        PlayerPrefs.SetInt("Sealer", player.currentSealer);
+
+    }
+
+    public void ResetSealer()
+    {
+        PlayerPrefs.DeleteKey("Sealer");
     }
 
 }

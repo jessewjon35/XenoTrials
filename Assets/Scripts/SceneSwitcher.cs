@@ -27,10 +27,7 @@ public class SceneSwitcher : MonoBehaviour
     public void Play()
     {
 
-        titleText.gameObject.SetActive(false);
-        playButton.gameObject.SetActive(false);
-        optionsButton.gameObject.SetActive(false);
-        creditsButton.gameObject.SetActive(false);
+        SceneManager.LoadScene("Game");
 
 
 

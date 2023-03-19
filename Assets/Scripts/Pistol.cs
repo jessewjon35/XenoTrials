@@ -11,6 +11,7 @@ public class Pistol : MonoBehaviour
     public Enemy enemy;
     public WeaponSwitch weaponSwitch;
     public Shotgun shotgunScript;
+    
 
     public GameObject pistol;
     public GameObject shotgun;
@@ -35,6 +36,7 @@ public class Pistol : MonoBehaviour
     public int pistolDamage = 25;
 
     public bool isReloading = false;
+    
 
     
 
@@ -46,7 +48,7 @@ public class Pistol : MonoBehaviour
         currentAmmoCapacity = maxAmmoCapacity;
         playerUi.SetPistolAmmo();
 
-       
+        
 
 
     }
@@ -81,20 +83,25 @@ public class Pistol : MonoBehaviour
             currentAmmoCapacity = maxAmmoCapacity;
         }
 
+        
 
     }
 
     public void Shoot()
     {
+        
         if (pistol.activeSelf == true && currentAmmoClip > minAmmoClip && currentAmmoCapacity >= minAmmoCapacity && weaponSwitch.pistolBought == true && isReloading == false)
         {
+            
             Instantiate(bulletPrefab, bulletSpawner.position, bulletSpawner.rotation);
 
             pistolShootingEffect.Play();
 
             currentAmmoClip -= 1;
             playerUi.SetPistolAmmo();
+            
         }
+       
         
 
     }

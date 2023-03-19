@@ -24,14 +24,14 @@ public class Door : MonoBehaviour
 
     public bool roomOneUnlocked;
     public bool roomTwoUnlocked;
+    public bool roomTwoAUnlocked;
     public bool roomThreeUnlocked;
+    public bool roomThreeAUnlocked;
     public bool roomFourUnlocked;
-    public bool roomFiveUnlocked;
-    public bool roomSixUnlocked;
-    public bool roomSixaUnlocked;
-    public bool roomSixbUnlocked;
-    public bool roomSevenUnlocked;
-    public bool roomEightUnlocked;
+    public bool roomTunnelUnlocked;
+
+    public bool navigationUnlocked;
+    public bool communicationUnlocked;
 
     // Start is called before the first frame update
     void Start()
@@ -40,16 +40,14 @@ public class Door : MonoBehaviour
         
 
         roomTwoUnlocked = false;
+        roomTwoAUnlocked = false;
         roomThreeUnlocked = false;
+        roomThreeAUnlocked = false;
         roomFourUnlocked = false;
-        roomFiveUnlocked = false;
-        roomSixUnlocked = false;
-        roomSixaUnlocked = false;
-        roomSixbUnlocked = false;
-        roomSevenUnlocked = false;
-        roomEightUnlocked = false;
+        roomTunnelUnlocked = false;
 
-        
+        navigationUnlocked = false;
+        communicationUnlocked = false; 
     }
 
     // Update is called once per frame
@@ -92,6 +90,34 @@ public class Door : MonoBehaviour
             
         }
     }
+    public void Door12a()
+    {
+        if (player.currentCurrency >= doorPrice)
+        {
+            door = GameObject.Find("Door1-2a");
+            Destroy(door);
+            player.currentCurrency -= doorPrice;
+            playerUi.SetCurrency();
+
+            doorsOpened++;
+            roomTwoAUnlocked = true;
+            
+        }
+    }
+    public void Door2aTunnel()
+    {
+        if (player.currentCurrency >= doorPrice)
+        {
+            door = GameObject.Find("Door2a-Tunnel");
+            Destroy(door);
+            player.currentCurrency -= doorPrice;
+            playerUi.SetCurrency();
+
+            doorsOpened++;
+            roomTunnelUnlocked = true;
+            
+        }
+    }
     public void Door23()
     {
         if (player.currentCurrency >= doorPrice)
@@ -102,8 +128,21 @@ public class Door : MonoBehaviour
             playerUi.SetCurrency();
 
             doorsOpened++;
-            roomTwoUnlocked = true;
             roomThreeUnlocked = true;
+            
+        }
+    }
+    public void Door2a3a()
+    {
+        if (player.currentCurrency >= doorPrice)
+        {
+            door = GameObject.Find("Door2a-3a");
+            Destroy(door);
+            player.currentCurrency -= doorPrice;
+            playerUi.SetCurrency();
+
+            doorsOpened++;
+            roomThreeAUnlocked = true;
         }
     }
     public void Door34()
@@ -116,122 +155,76 @@ public class Door : MonoBehaviour
             playerUi.SetCurrency();
 
             doorsOpened++;
-            roomThreeUnlocked = true;
             roomFourUnlocked = true;
+        }
+    }
+    public void Door3a4()
+    {
+        if (player.currentCurrency >= doorPrice)
+        {
+            door = GameObject.Find("Door3a-4");
+            Destroy(door);
+            player.currentCurrency -= doorPrice;
+            playerUi.SetCurrency();
+
+            doorsOpened++;
             
         }
     }
-    public void Door3a()
-    {
-        if (player.currentCurrency >= doorPrice && roomSixaUnlocked == true)
-        {
-            door = GameObject.Find("Door3a-3");
-            Destroy(door);
-            player.currentCurrency -= doorPrice;
-            playerUi.SetCurrency();
-
-            doorsOpened++;
-            roomThreeUnlocked = true;
-            
-        }
-    }
-    public void Door45()
+    public void Door3Tunnel()
     {
         if (player.currentCurrency >= doorPrice)
         {
-            door = GameObject.Find("Door4-5");
+            door = GameObject.Find("Door3-Tunnel");
             Destroy(door);
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
             doorsOpened++;
-            roomFourUnlocked = true;
-            roomFiveUnlocked = true;
-        }
-    }
-    public void Door56()
-    {
-        if (player.currentCurrency >= doorPrice)
-        {
-            door = GameObject.Find("Door5-6");
-            Destroy(door);
-            player.currentCurrency -= doorPrice;
-            playerUi.SetCurrency();
 
-            doorsOpened++;
-            roomFiveUnlocked = true;
-            roomSixUnlocked = true;
         }
     }
-    public void Door67()
-    {
-        if (player.currentCurrency >= doorPrice)
-        {
-            door = GameObject.Find("Door6-7");
-            Destroy(door);
-            player.currentCurrency -= doorPrice;
-            playerUi.SetCurrency();
 
-            doorsOpened++;
-            roomSixUnlocked = true;
-            roomSevenUnlocked = true;
-        }
-    }
-    public void Door6a()
+    public void Door3aComms()
     {
         if (player.currentCurrency >= doorPrice )
         {
-            door = GameObject.Find("Door6a");
+            door = GameObject.Find("Door3a-Comms");
             Destroy(door);
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
             doorsOpened++;
-            roomSixUnlocked = true;
-            roomSixaUnlocked = true;
+            
         }
     }
-    public void Door6b()
+    public void DoorTunnelComms()
     {
         if (player.currentCurrency >= doorPrice && roomThreeUnlocked == true)
         {
-            door = GameObject.Find("Door6b");
+            door = GameObject.Find("DoorTunnel-Comms");
             Destroy(door);
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
             doorsOpened++;
-            roomSixaUnlocked = true;
-            roomSixbUnlocked = true;
+           
         }
     }
-    public void Door78()
+    public void DoorTunnelNav()
     {
         if (player.currentCurrency >= doorPrice)
         {
-            door = GameObject.Find("Door7-8");
+            door = GameObject.Find("DoorTunnel-Nav");
             Destroy(door);
             player.currentCurrency -= doorPrice;
             playerUi.SetCurrency();
 
             doorsOpened++;
-            roomSevenUnlocked = true;
-            roomEightUnlocked = true;
+            
         }
     }
-    public void Door81()
-    {
-        if (player.currentCurrency >= doorPrice)
-        {
-            door = GameObject.Find("Door8-1");
-            Destroy(door);
-            player.currentCurrency -= doorPrice;
-            playerUi.SetCurrency();
-
-            doorsOpened++;
-            roomEightUnlocked = true;
-        }
-    }
+    
 
 
 }
