@@ -10,9 +10,7 @@ public class ItemPickup : MonoBehaviour
        
     public PlayerUI playerUi;
 
-    private GameObject sealerClone;
-
-    public int currencyAmount = 50;
+    public BoxCollider2D playerCollider;
     
 
     // Start is called before the first frame update
@@ -24,20 +22,21 @@ public class ItemPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        sealerClone = GameObject.FindWithTag("SpawnerSealer");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerUi = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerUI>();
 
-
+        playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
         
 
     }
 
-    public void CurrencyCheat()
+    /*public void CurrencyCheat()
     {
         
             player.currentCurrency += currencyAmount;
             playerUi.SetCurrency();
         
-    }
+    }*/
     
     
     
@@ -45,14 +44,27 @@ public class ItemPickup : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-            if (collision.gameObject.tag == "SpawnerSealer")
+            /*if (collision.gameObject.tag == "SpawnerSealer")
             {
                 Destroy(obj: sealerClone);
                 player.currentSealer += 1;
                 playerUi.SetSealer();
 
-            }
+            }*/
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider == playerCollider)
+        {
+            if(gameObject.name == "SpawnerSealer(Clone)")
+            {
+                player.currentSealer += 1;
+                Destroy(gameObject);               
+              
+            }
+        }
     }
 
 }

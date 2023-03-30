@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5161313872438824872}
   - component: {fileID: 594068680534148857}
   - component: {fileID: 1120768480069474399}
+  - component: {fileID: 8881089385345598287}
   m_Layer: 10
   m_Name: EnemyProjectile
   m_TagString: Projectile
@@ -98,12 +99,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8314725fb59873445bee27560fe18961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 8881089385345598287}
   playerScript: {fileID: 0}
   playerUi: {fileID: 0}
+  enemyHealth: {fileID: 1026042576714045144, guid: b694fe34010342043bb7981524b32997, type: 3}
   enemyScript: {fileID: 4361683923147727791, guid: b694fe34010342043bb7981524b32997, type: 3}
-  speed: 5
-  projectileDamage: 25
+  speed: 7.5
+  projectileDamage: 15
   ricochetCurrency: 30
+  enemy1Collider: {fileID: 4361683923147727790, guid: b694fe34010342043bb7981524b32997, type: 3}
+  playerCollider: {fileID: 0}
+  meleeCollider: {fileID: 0}
 --- !u!58 &1120768480069474399
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -120,3 +126,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.49999997
+--- !u!50 &8881089385345598287
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2210290484500053390}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0

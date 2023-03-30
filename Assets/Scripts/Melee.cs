@@ -6,9 +6,7 @@ public class Melee : MonoBehaviour
 {
     public PlayerUI playerUi;
     public Player playerScript;
-    public Enemy enemyScript;
-    public EnemyProjectile enemyProjectile;
-
+   
     public GameObject starterMelee;
     public GameObject currency;
     
@@ -25,10 +23,15 @@ public class Melee : MonoBehaviour
    
     public CircleCollider2D starterMeleeCol;
     
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        GetComponent<CircleCollider2D>();
+        starterMeleeCol = GetComponent<CircleCollider2D>();
+        
+
         
        
         starterMeleeCol.enabled = false;
@@ -68,13 +71,6 @@ public class Melee : MonoBehaviour
         }
 
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
-    
-
 
 
     /*private void OnDrawGizmosSelected()

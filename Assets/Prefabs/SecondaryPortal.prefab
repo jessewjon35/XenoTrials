@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2162788910542907770}
   - component: {fileID: 2162788910542907771}
+  - component: {fileID: 9012091344400775770}
   m_Layer: 0
   m_Name: SecondaryPortal
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,6 +86,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9012091344400775770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162788910542907769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6e579604fc7764d98d3647cc98927b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectives: {fileID: 0}
+  player: {fileID: 0}
+  primaryPortal: {fileID: 0}
+  secondaryPortal: {fileID: 0}
+  isTeleporting: 0
+  portalActivated: 0
 --- !u!1 &2162788911695137073
 GameObject:
   m_ObjectHideFlags: 0

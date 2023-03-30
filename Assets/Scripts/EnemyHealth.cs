@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    public Enemy enemy;
+
     public int enemy1CurrentHealth;
     public int enemy1MinHealth = 0;
     public int enemy1MaxHealth = 50;
@@ -21,6 +23,15 @@ public class EnemyHealth : MonoBehaviour
         if (enemy1CurrentHealth <= enemy1MinHealth)
         {
             enemy1CurrentHealth = enemy1MinHealth;
+            Destroy(gameObject);
+            enemy.DropRate();
         }
+        else if(enemy1CurrentHealth >= enemy1MaxHealth)
+        {
+            enemy1CurrentHealth = enemy1MaxHealth;
+        }
+
+        
+
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
 
-    //public Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     public Player playerScript;
     public PlayerUI playerUi;
@@ -22,22 +22,26 @@ public class EnemyProjectile : MonoBehaviour
     private Transform enemy;
     private Vector2 target;
     private Vector2 ricochetTarget;
-    //private CircleCollider2D meleeCollider;
+
+    public CircleCollider2D enemy1Collider;
+    public BoxCollider2D playerCollider;
+    public CircleCollider2D meleeCollider;
 
     // Start is called before the first frame update
     void Start()
     {
-        //rb = GetComponent<Rigidbody2D>();
-
-        //projectileClone = GameObject.FindGameObjectWithTag("Projectile");
+        rb = GetComponent<Rigidbody2D>();
 
         playerUi = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerUI>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        
+        enemyHealth = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyHealth>();
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
 
-        //meleeCollider = GameObject.FindGameObjectWithTag("Melee").GetComponent<CircleCollider2D>();
+        enemy1Collider = GameObject.FindGameObjectWithTag("Enemy").GetComponent<CircleCollider2D>();
+        playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+        meleeCollider = GameObject.FindGameObjectWithTag("Melee").GetComponent<CircleCollider2D>();
 
         target = new Vector2(player.position.x, player.position.y);
         ricochetTarget = new Vector2(enemy.position.x, enemy.position.y);
@@ -71,9 +75,9 @@ public class EnemyProjectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(collision.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player")
         {
             if(playerScript.isInvincible == true)
             {
@@ -88,59 +92,80 @@ public class EnemyProjectile : MonoBehaviour
  
         }
 
-        if(collision.gameObject.tag == "Melee")
+        if(other.gameObject.tag == "Melee")
         {
 
             speed *= -1;
 
         }
 
-        if(collision.gameObject.tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
             if(speed < 0)
             {
-                Destroy(gameObject);
+                enemyHealth = other.GetComponent<EnemyHealth>();
                 enemyHealth.enemy1CurrentHealth -= projectileDamage;
                 playerScript.currentCurrency += ricochetCurrency;
-                enemyScript.KillEnemy();
+                DestroyProjectile();
             }
+                        
         }
-              
 
-        if(collision.gameObject.tag == "walls ")
+        if (other.gameObject.tag == "walls")
         {
             DestroyProjectile();
         }
-        if(collision.gameObject.tag == "floor")
+        if(other.gameObject.tag == "floor")
         {
             DestroyProjectile();
         }    
     }
 
-    /*private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D other)
     {
-       if(collision.gameObject.tag == "Player")
+        if (other.collider == playerCollider)
         {
-            if(playerScript.isInvincible == true)
+            if (playerScript.isInvincible == true)
             {
                 DestroyProjectile();
             }
-            else if(playerScript.isInvincible == false)
+            else if (playerScript.isInvincible == false)
             {
                 DestroyProjectile();
                 playerScript.currentHealth -= projectileDamage;
                 playerUi.SetHealth();
             }
- 
+
         }
 
+        if (other.gameObject.tag == "Melee")
+        {
+
+            speed *= -1;
+            
+            
+        }
         
 
-        if(collision.gameObject.tag == "walls " || collision.gameObject.tag == "floor")
+        if (other.gameObject.tag == "Enemy")
+        {
+            if (speed < 0)
+            {
+                DestroyProjectile();
+            }
+
+        }
+
+        if (other.gameObject.tag == "walls ")
         {
             DestroyProjectile();
-        } 
+        }
+        if (other.gameObject.tag == "floor")
+        {
+            DestroyProjectile();
+        }
     }*/
+
 
 
 }

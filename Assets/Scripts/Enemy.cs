@@ -6,7 +6,7 @@ using TMPro;
 
 public class Enemy : MonoBehaviour
 {
-    //public Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     public GameObject enemy;
     public GameObject bulletPrefab;
@@ -17,9 +17,6 @@ public class Enemy : MonoBehaviour
     public float timeBetweenShots;
     public float startTimeBetweenShots;
     
-    //private GameObject enemyClone;
-    
-
     public ParticleSystem enemyDeathEffect;
 
     private Transform target;
@@ -31,37 +28,46 @@ public class Enemy : MonoBehaviour
     public int enemyCollisionDamage = 5;
     public float dropChance = .75f;
 
+    
      public EnemyHealth enemyHealth;
+
      public Player playerScript;    
      public Pistol pistol;
      public Shotgun shotgun;
      public EnemyProjectile enemyProjectileScript;
      public Melee melee;
-    //private PlayerUI playerUi;
+     public WaveManager waveManager;
 
     public Renderer rd;
     private BoxCollider2D playerCollider;
     private CircleCollider2D starterMeleeCollider;
+    private CircleCollider2D enemy1Collider;
+    public CircleCollider2D projectileCollider;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rd = GetComponent<Renderer>();
-        //rb = enemy.GetComponent<Rigidbody2D>();
+        rb = enemy.GetComponent<Rigidbody2D>();
+        
+        enemy1Collider = GetComponent<CircleCollider2D>();
+        GetComponent<CircleCollider2D>();
 
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         player = GameObject.FindGameObjectWithTag("Player");
-
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         pistol = GameObject.FindGameObjectWithTag("Player").GetComponent<Pistol>();
         shotgun = GameObject.FindGameObjectWithTag("Player").GetComponent<Shotgun>();
+        //enemyHealth = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyHealth>();
+        waveManager = GameObject.FindGameObjectWithTag("WaveManager").GetComponent<WaveManager>();
+
         melee = GameObject.FindGameObjectWithTag("Melee").GetComponent<Melee>();
-        //playerUi = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerUI>();
 
         playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
         starterMeleeCollider = GameObject.FindGameObjectWithTag("Melee").GetComponent<CircleCollider2D>();
-
+       
+        
         
 
         timeBetweenShots = startTimeBetweenShots;
@@ -93,6 +99,8 @@ public class Enemy : MonoBehaviour
         /*RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 100f);
         Debug.DrawRay(hit.transform.position, transform.right, Color.red);*/
         
+
+
         if(timeBetweenShots <= 0)
         {
             Instantiate(enemyProjectile, transform.position, Quaternion.identity);
@@ -104,6 +112,7 @@ public class Enemy : MonoBehaviour
         }
 
         
+
     }
 
     private void FixedUpdate()
@@ -120,19 +129,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void KillEnemy()
-    {
-        if(enemyHealth.enemy1CurrentHealth <= enemyHealth.enemy1MinHealth)
-        {
-            Destroy(gameObject);
-
-            //Instantiate(enemyDeathEffect, transform.position, transform.rotation);
-
-            DropRate();
-            
-        }
-    }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -144,21 +140,24 @@ public class Enemy : MonoBehaviour
 
             }
         }
+ 
 
-        if (collision.collider == starterMeleeCollider)
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Melee")
         {
-            if (gameObject.name == "Enemy(Clone)")
-            {
-                enemyHealth.enemy1CurrentHealth -= melee.meleeDamage;
-                playerScript.currentCurrency += melee.currencyPerMelee;
-            }
+            enemyHealth = collision.GetComponent<EnemyHealth>();
+            enemyHealth.enemy1CurrentHealth -= melee.meleeDamage;
+            playerScript.currentCurrency += melee.currencyPerMelee;
 
         }
 
     }
 
 
-
+    
 
 
 }

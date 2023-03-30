@@ -10,7 +10,7 @@ public class Door : MonoBehaviour
 
     private GameObject door;
 
-    public Button doorButton1;
+    public Button doorButton;
    
 
 
@@ -18,17 +18,23 @@ public class Door : MonoBehaviour
     private Player player;
     [SerializeField]
     private PlayerUI playerUi;
+    [SerializeField]
+    private Shop shop;
+    [SerializeField]
+    private Objectives objectives;
 
     public int doorPrice;
     public int doorsOpened;
 
-    public bool roomOneUnlocked;
     public bool roomTwoUnlocked;
     public bool roomTwoAUnlocked;
     public bool roomThreeUnlocked;
     public bool roomThreeAUnlocked;
     public bool roomFourUnlocked;
-    public bool roomTunnelUnlocked;
+    public bool room2aVentUnlocked;
+    public bool room3VentUnlocked;
+    public bool room3aVentUnlocked;
+    public bool ventsUnlocked;
 
     public bool navigationUnlocked;
     public bool communicationUnlocked;
@@ -36,7 +42,10 @@ public class Door : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        doorButton1.gameObject.SetActive(false);
+        shop = GameObject.FindGameObjectWithTag("Shop").GetComponent<Shop>();
+        objectives = GameObject.FindGameObjectWithTag("Objectives").GetComponent<Objectives>();
+
+        doorButton.gameObject.SetActive(false);
         
 
         roomTwoUnlocked = false;
@@ -44,7 +53,10 @@ public class Door : MonoBehaviour
         roomThreeUnlocked = false;
         roomThreeAUnlocked = false;
         roomFourUnlocked = false;
-        roomTunnelUnlocked = false;
+        room2aVentUnlocked = false;
+        room3VentUnlocked = false;
+        room3aVentUnlocked = false;
+        ventsUnlocked = false;
 
         navigationUnlocked = false;
         communicationUnlocked = false; 
@@ -54,6 +66,23 @@ public class Door : MonoBehaviour
     void Update()
     {
       
+        if(room2aVentUnlocked == true && room3aVentUnlocked == true && room3VentUnlocked == true)
+        {
+            ventsUnlocked = true;
+        }
+
+        if(objectives.communicationRepaired == true)
+        {
+            door = GameObject.Find("Door2a-Tunnel");
+            Destroy(door);
+
+            door = GameObject.Find("Door3-Tunnel");
+            Destroy(door);
+
+            door = GameObject.Find("Door3a-Comms");
+            Destroy(door);
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -61,7 +90,7 @@ public class Door : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
 
-            doorButton1.gameObject.SetActive(true);
+            doorButton.gameObject.SetActive(true);
 
         }
         
@@ -70,7 +99,7 @@ public class Door : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            doorButton1.gameObject.SetActive(false);
+            doorButton.gameObject.SetActive(false);
            
         }
     }
@@ -106,15 +135,14 @@ public class Door : MonoBehaviour
     }
     public void Door2aTunnel()
     {
-        if (player.currentCurrency >= doorPrice)
+        if (shop.ventPartsBought == true)
         {
             door = GameObject.Find("Door2a-Tunnel");
             Destroy(door);
-            player.currentCurrency -= doorPrice;
-            playerUi.SetCurrency();
 
             doorsOpened++;
-            roomTunnelUnlocked = true;
+            shop.ventPartsBought = false;
+            room2aVentUnlocked = true;            
             
         }
     }
@@ -129,6 +157,7 @@ public class Door : MonoBehaviour
 
             doorsOpened++;
             roomThreeUnlocked = true;
+            roomTwoUnlocked = true;
             
         }
     }
@@ -143,6 +172,7 @@ public class Door : MonoBehaviour
 
             doorsOpened++;
             roomThreeAUnlocked = true;
+            roomTwoAUnlocked = true;
         }
     }
     public void Door34()
@@ -155,6 +185,7 @@ public class Door : MonoBehaviour
             playerUi.SetCurrency();
 
             doorsOpened++;
+            roomThreeUnlocked = true;
             roomFourUnlocked = true;
         }
     }
@@ -168,33 +199,40 @@ public class Door : MonoBehaviour
             playerUi.SetCurrency();
 
             doorsOpened++;
+            roomThreeAUnlocked = true;
+            roomFourUnlocked = true;
             
         }
     }
     public void Door3Tunnel()
     {
-        if (player.currentCurrency >= doorPrice)
+        if (shop.ventPartsBought == true)
         {
             door = GameObject.Find("Door3-Tunnel");
             Destroy(door);
-            player.currentCurrency -= doorPrice;
-            playerUi.SetCurrency();
+            
 
             doorsOpened++;
+            shop.ventPartsBought = false;
+            roomThreeUnlocked = true;
+            room3VentUnlocked = true;
 
         }
     }
 
     public void Door3aComms()
     {
-        if (player.currentCurrency >= doorPrice )
+        if (shop.ventPartsBought == true && communicationUnlocked == true)
         {
             door = GameObject.Find("Door3a-Comms");
             Destroy(door);
-            player.currentCurrency -= doorPrice;
-            playerUi.SetCurrency();
+            
 
             doorsOpened++;
+            shop.ventPartsBought = false;
+            room3aVentUnlocked = true;
+            communicationUnlocked = true;
+            roomThreeAUnlocked = true;
             
         }
     }
@@ -208,6 +246,7 @@ public class Door : MonoBehaviour
             playerUi.SetCurrency();
 
             doorsOpened++;
+            communicationUnlocked = true;
            
         }
     }
@@ -221,6 +260,7 @@ public class Door : MonoBehaviour
             playerUi.SetCurrency();
 
             doorsOpened++;
+            navigationUnlocked = true;
             
         }
     }

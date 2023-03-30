@@ -121,7 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6824768c2fd824387e745d0a95ffde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy1CurrentHealth: 0
+  enemy: {fileID: 4361683923147727791}
+  enemy1CurrentHealth: 50
   enemy1MinHealth: 0
   enemy1MaxHealth: 50
 --- !u!114 &4361683923147727791
@@ -136,15 +137,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5e73cb82debf94e9db09084bc81a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 2466826085351674530}
   enemy: {fileID: 4361683923147727776}
   bulletPrefab: {fileID: 3286754354708316099, guid: 1bf1b4e3459d69549a4da9792fa53e9b, type: 3}
   player: {fileID: 0}
   enemyProjectile: {fileID: 2210290484500053390, guid: d105b3b998bea9742b4f799baf1ca9cd, type: 3}
   sealer: {fileID: 1774353925980360781, guid: 35cf6ebb04e1672469e637412a88e0c4, type: 3}
   timeBetweenShots: 0
-  startTimeBetweenShots: 4.5
+  startTimeBetweenShots: 2
   enemyDeathEffect: {fileID: 5739495355286361147, guid: b48b79dd102ee14429d255f12b35e6e0, type: 3}
-  enemySpeed: 5
+  enemySpeed: 6
   enemyCollisionDamage: 5
   dropChance: 0.75
   enemyHealth: {fileID: 1026042576714045144}
@@ -153,7 +155,9 @@ MonoBehaviour:
   shotgun: {fileID: 0}
   enemyProjectileScript: {fileID: 594068680534148857, guid: d105b3b998bea9742b4f799baf1ca9cd, type: 3}
   melee: {fileID: 0}
+  waveManager: {fileID: 0}
   rd: {fileID: 4361683923147727789}
+  projectileCollider: {fileID: 1120768480069474399, guid: d105b3b998bea9742b4f799baf1ca9cd, type: 3}
 --- !u!114 &1138389485334619999
 MonoBehaviour:
   m_ObjectHideFlags: 0

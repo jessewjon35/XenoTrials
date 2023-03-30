@@ -67,7 +67,7 @@ public class WeaponSwitch : MonoBehaviour
             pistolAmmoText.enabled = true;
             shotgunAmmoText.enabled = false;
 
-            playerUi.SetPistolAmmo();
+            //playerUi.SetPistolAmmo();
            
             
         }
@@ -80,7 +80,7 @@ public class WeaponSwitch : MonoBehaviour
             pistolAmmoText.enabled = false;
             shotgunAmmoText.enabled = true;
 
-            playerUi.SetShotgunAmmo();
+           // playerUi.SetShotgunAmmo();
             
         }
 
