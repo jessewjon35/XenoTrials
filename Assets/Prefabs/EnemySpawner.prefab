@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5968805143062586586}
   m_Layer: 0
   m_Name: EnemySpawner
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 780a4c034433d6c43831fbfacf4d4f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   durabilityVisual: {fileID: 5961981202372420037}
   currentDurability: 1
   maxDurability: 1
@@ -138,7 +139,6 @@ MonoBehaviour:
   durabilityRate: 0.1
   durabilityFixPerItem: 0.5
   SpawnerSealingButton: {fileID: 0}
-  isOpen: 0
   isSealing: 1
 --- !u!58 &5968805143062586586
 CircleCollider2D:

@@ -6,7 +6,7 @@ using TMPro;
 
 public class GunStations : MonoBehaviour
 {
-    public Player player;
+    /*public Player player;
     public Pistol pistolScript;
     public Shotgun shotgunScript;
     public PlayerUI playerUi;
@@ -237,7 +237,7 @@ public class GunStations : MonoBehaviour
 
         shotgunStationButton.gameObject.SetActive(false);
         shotgunAmmoPurchaseButton.gameObject.SetActive(false);
-    }
+    }*/
 
 
 }

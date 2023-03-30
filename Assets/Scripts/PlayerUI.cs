@@ -8,21 +8,19 @@ public class PlayerUI : MonoBehaviour
 {
 
     public Player player;
-    public Pistol pistol;
-    public Shotgun shotgun;
     public Enemy enemy;
     public GravitySwap gravitySwap;
+    public Timer timer;
 
     public Slider healthSlider;
     public Slider staminaSlider;
     public Slider gravityChargeSlider;
 
-    public TMP_Text currencyText;
-    public TMP_Text pistolAmmoText;
-    public TMP_Text shotgunAmmoText;
+    public TMP_Text currencyText;  
     public TMP_Text healthText;
     public TMP_Text staminaText;
     public TMP_Text sealerText;
+    
     
 
     // Start is called before the first frame update
@@ -35,15 +33,8 @@ public class PlayerUI : MonoBehaviour
         healthText.text = player.currentHealth.ToString();
         staminaText.text = player.currentStamina.ToString();
         sealerText.text = "Sealer: " + player.currentSealer.ToString();
-
-        pistolAmmoText.enabled = false;
-        shotgunAmmoText.enabled = false;
-        ResetAmmo();
-        SetPistolAmmo();
-        SetShotgunAmmo();
-
-
-
+        
+        
     }
 
     // Update is called once per frame
@@ -64,7 +55,7 @@ public class PlayerUI : MonoBehaviour
     public void SetHealth()
     {
         healthSlider.value = player.currentHealth;
-
+        healthText.text = player.currentHealth.ToString();
     }
 
     public void SetMaxStamina()
@@ -76,6 +67,7 @@ public class PlayerUI : MonoBehaviour
     public void SetStamina()
     {
         staminaSlider.value = player.currentStamina;
+        staminaText.text = player.currentStamina.ToString();
     }
 
     public void SetCurrency()
@@ -91,7 +83,7 @@ public class PlayerUI : MonoBehaviour
     }
 
 
-    public void SetPistolAmmo()
+    /*public void SetPistolAmmo()
     {
         pistolAmmoText.text = "Ammo: " + pistol.currentAmmoClip.ToString() + " / " + pistol.currentAmmoCapacity.ToString();
         PlayerPrefs.SetFloat("PistolAmmoClip", pistol.currentAmmoClip);
@@ -114,7 +106,7 @@ public class PlayerUI : MonoBehaviour
 
         PlayerPrefs.DeleteKey("ShotgunAmmoClip");
         PlayerPrefs.DeleteKey("ShotgunAmmoCapacity");
-    }
+    }*/
 
     public void SetGravityCharge()
     {
@@ -131,6 +123,12 @@ public class PlayerUI : MonoBehaviour
     public void ResetSealer()
     {
         PlayerPrefs.DeleteKey("Sealer");
+    }
+
+    public void SetTimer()
+    {
+        timer.timerText.text = timer.Hours.ToString("00") + ":" + timer.Minutes.ToString("00") + ":" + timer.Seconds.ToString("00");
+        PlayerPrefs.SetFloat("Timer", timer.currentTime);
     }
 
 }

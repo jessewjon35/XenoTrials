@@ -46,6 +46,9 @@ public class Player : MonoBehaviour
         playerUi.SetMaxHealth();
         playerUi.SetMaxStamina();
 
+        currentSealer = minSealer;
+        playerUi.SetSealer();
+
         GetComponent<BoxCollider2D>();
 
         playerUi.ResetCurrency();
@@ -55,6 +58,8 @@ public class Player : MonoBehaviour
         isInvincible = false;
 
         Time.timeScale = 1f;
+
+        
         
 
     }
@@ -65,14 +70,15 @@ public class Player : MonoBehaviour
     void Update()
     {
         playerUi.SetCurrency();
+        playerUi.SetSealer();
 
         if(currentHealth <= minHealth)
         {
             currentHealth = minHealth;
+            playerUi.SetHealth();
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
         }
-
         if(currentHealth >= maxHealth)
         {
             currentHealth = maxHealth;
@@ -83,13 +89,12 @@ public class Player : MonoBehaviour
         if (currentStamina <= minStamina)
         {
             currentStamina = minStamina;
+            playerUi.SetStamina();
         }
-
         if (currentStamina >= maxStamina)
         {
             currentStamina = maxStamina;
         }
-
         if(currentStamina < maxStamina)
         {
             StaminaRecharge();
@@ -101,6 +106,7 @@ public class Player : MonoBehaviour
             currentCurrency = minCurrency;
         }
 
+
         if(currentSealer <= minSealer)
         {
             currentSealer = minSealer;
@@ -111,7 +117,6 @@ public class Player : MonoBehaviour
         {
             gravitySwap.gravityPoundCount = 0;
         }
-
         if(gravitySwap.isGroundedAfterGravity == false && gravitySwap.currentGravityCharge > 0)
         {
             isInvincible = true;

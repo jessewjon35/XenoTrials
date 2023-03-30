@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Pistol : MonoBehaviour
 {
     
-    public PlayerUI playerUi;
+    /*public PlayerUI playerUi;
     public GunStations gunStations;
     public Enemy enemy;
     public WeaponSwitch weaponSwitch;
@@ -121,7 +121,7 @@ public class Pistol : MonoBehaviour
     public void ReloadTimerReset()
     {
         reloadTime = .5f;
-    }
+    }*/
 
     
 
