@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
     public GameObject starterMelee;
+    public GameObject solarKnife;
+    public GameObject solarSword;
+    //public GameObject solarMace;
+    //public GameObject solarWhip;
     public ParticleSystem movementParticles;
     public ParticleSystem jumpingParticles;
     public ParticleSystem landingParticles;
@@ -223,7 +227,9 @@ public class PlayerController : MonoBehaviour
     {
         isFacingRight = !isFacingRight;
 
-        starterMelee.transform.Rotate(0f, 180f, 0f);
+        starterMelee.transform.Rotate(180f, 180f, 180f);
+        solarKnife.transform.Rotate(180f, 180f, 180f);
+        solarSword.transform.Rotate(180f, 180f, 180f);
 
         movementParticles.transform.Rotate(0f, 180f, 0f);
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class WaveManager : MonoBehaviour
     public Objectives objectives;
 
     public GameObject enemy;
-   
+
+    public TMP_Text nextWaveText;
 
     public List<Transform> spawnPoints;
     public Transform spawner1;
@@ -19,7 +21,7 @@ public class WaveManager : MonoBehaviour
     public Transform spawner5;
     public Transform spawner6;
 
-    public float spawnRate = 0.5f;
+    public float spawnRate;
 
     public float timeBetweenWaves = 10f;
     public float waveCountdown = 0;
@@ -67,6 +69,7 @@ public class WaveManager : MonoBehaviour
         waveIsDone = true;
         isSpawning = false;
 
+
     }
 
     // Update is called once per frame
@@ -97,9 +100,10 @@ public class WaveManager : MonoBehaviour
     {
         
         timeBetweenWaves -= Time.deltaTime;
-        
-        
-        if(timeBetweenWaves <= waveCountdown)
+
+        nextWaveText.gameObject.SetActive(true);
+
+        if (timeBetweenWaves <= waveCountdown)
         {
             SpawnWave();
             isWaiting = false;
@@ -109,14 +113,28 @@ public class WaveManager : MonoBehaviour
 
     public void SpawnWave()
     {
+        nextWaveText.gameObject.SetActive(false);
+
         nextWave = currentWave + 1;
         currentWave = nextWave;
         Debug.Log(currentWave);
 
         Debug.Log("Wave Starting");
-        
-        enemyCount += 3;
-        spawnRate += 0.1f;
+        if(objectives.navigationSabotaged == false && objectives.communicationSabotaged == false)
+        {
+            enemyCount += 2;
+            spawnRate = .25f;
+        }
+        else if(objectives.navigationSabotaged == true || objectives.communicationSabotaged == true)
+        {
+            enemyCount += 3;
+            spawnRate = .25f;
+        }
+        else if (objectives.navigationSabotaged == true && objectives.communicationSabotaged == true)
+        {
+            enemyCount = 500;
+        }
+
 
         waveIsDone = false;
 
@@ -186,6 +204,7 @@ public class WaveManager : MonoBehaviour
         Debug.Log("WaveCompleted");
         waveIsDone = true;
         currentWave = nextWave;
+        
 
     }
 

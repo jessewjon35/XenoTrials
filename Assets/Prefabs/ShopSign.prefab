@@ -275,10 +275,12 @@ MonoBehaviour:
   playerController: {fileID: 0}
   playerUi: {fileID: 0}
   door: {fileID: 0}
+  objectives: {fileID: 0}
   shopButton: {fileID: 0}
   knifeButton: {fileID: 0}
   swordButton: {fileID: 0}
   maceButton: {fileID: 0}
+  whipButton: {fileID: 0}
   ventButtonText: {fileID: 0}
   navRepairButton: {fileID: 0}
   commRepairButton: {fileID: 0}
@@ -286,6 +288,9 @@ MonoBehaviour:
   knifeText: {fileID: 0}
   swordText: {fileID: 0}
   maceText: {fileID: 0}
+  macePlaceholderText: {fileID: 0}
+  whipText: {fileID: 0}
+  whipPlaceholderText: {fileID: 0}
   ventPartsText: {fileID: 0}
   navRepairPlaceholderText: {fileID: 0}
   commRepairPlaceholderText: {fileID: 0}
@@ -294,12 +299,14 @@ MonoBehaviour:
   knifePrice: 150
   swordPrice: 250
   macePrice: 350
+  whipPrice: 400
   ventPartsPrice: 250
   navigationPartsPrice: 500
   communicationPartsPrice: 500
   knifeBought: 0
   swordBought: 0
   maceBought: 0
+  whipBought: 0
   ventPartsBought: 0
   navigationPartsBought: 0
   communicationPartsBought: 0

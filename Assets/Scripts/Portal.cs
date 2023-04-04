@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
 
     public Button portalButton;
 
-    private float cooldownTime = 5f;
+    private float cooldownTime;
     private float minCooldownTime = 0f;
 
     public bool isTeleporting;
@@ -33,6 +33,14 @@ public class Portal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(objectives.navigationRepaired == true)
+        {
+            cooldownTime = 30;
+        }
+        else if(objectives.navigationSabotaged == true)
+        {
+            cooldownTime = 15;
+        }
 
         PortalCooldown();
     }
@@ -93,6 +101,7 @@ public class Portal : MonoBehaviour
 
     public void PortalReset()
     {
+        
         isTeleporting = false;
         cooldownTime = 30f;
     }

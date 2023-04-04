@@ -34,7 +34,7 @@ public class Objectives : MonoBehaviour
     void Start()
     {
         shop = GameObject.FindGameObjectWithTag("Shop").GetComponent<Shop>();
-        
+        portal = GameObject.FindGameObjectWithTag("Portal").GetComponent<Portal>();
 
         navigationRepairButton.gameObject.SetActive(false);
         navigationSabotageButton.gameObject.SetActive(false);

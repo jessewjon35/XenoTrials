@@ -10,21 +10,32 @@ public class Shop : MonoBehaviour
     public PlayerController playerController;
     public PlayerUI playerUi;
     public Door door;
+    public Objectives objectives;
 
     public Button shopButton;
 
     public Button knifeButton;
     public Button swordButton;
     public Button maceButton;
+    public Button whipButton;
     public Button ventButtonText;
     public Button navRepairButton;
     public Button commRepairButton;
 
     public GameObject shopPanel;
 
+    public GameObject starterMelee;
+    public GameObject knifeMelee;
+    public GameObject swordMelee;
+    //public GameObject maceMelee;
+    //public GameObject whipMelee;
+
     public TMP_Text knifeText;
     public TMP_Text swordText;
     public TMP_Text maceText;
+    public TMP_Text macePlaceholderText;
+    public TMP_Text whipText;
+    public TMP_Text whipPlaceholderText;
 
     public TMP_Text ventPartsText;
     public TMP_Text navRepairPlaceholderText;
@@ -35,6 +46,7 @@ public class Shop : MonoBehaviour
     public int knifePrice;
     public int swordPrice;
     public int macePrice;
+    public int whipPrice;
     public int ventPartsPrice;
     public int navigationPartsPrice;
     public int communicationPartsPrice;
@@ -42,6 +54,7 @@ public class Shop : MonoBehaviour
     public bool knifeBought;
     public bool swordBought;
     public bool maceBought;
+    public bool whipBought;
     public bool ventPartsBought;
     public bool navigationPartsBought;
     public bool communicationPartsBought;
@@ -53,6 +66,7 @@ public class Shop : MonoBehaviour
     void Start()
     {
         door = GameObject.FindGameObjectWithTag("Door").GetComponent<Door>();
+        objectives = GameObject.FindGameObjectWithTag("Objectives").GetComponent<Objectives>();
 
         shopPanel.SetActive(false);
 
@@ -62,7 +76,10 @@ public class Shop : MonoBehaviour
 
         knifeButton.gameObject.SetActive(true);
         swordButton.gameObject.SetActive(true);
-        maceButton.gameObject.SetActive(true);
+        maceButton.gameObject.SetActive(false);
+        macePlaceholderText.gameObject.SetActive(true);
+        whipButton.gameObject.SetActive(false);
+        whipPlaceholderText.gameObject.SetActive(true);
 
         ventPartsText.gameObject.SetActive(false);
         navRepairPartsText.gameObject.SetActive(false);
@@ -105,7 +122,6 @@ public class Shop : MonoBehaviour
 
         knifeButton.gameObject.SetActive(true);
         swordButton.gameObject.SetActive(true);
-        maceButton.gameObject.SetActive(true);
 
         ventPartsText.gameObject.SetActive(false);
         navRepairPartsText.gameObject.SetActive(false);
@@ -116,6 +132,21 @@ public class Shop : MonoBehaviour
         commRepairButton.gameObject.SetActive(false);
         navRepairPlaceholderText.gameObject.SetActive(false);
         commRepairPlaceholderText.gameObject.SetActive(false);
+
+        if (objectives.communicationRepaired == false)
+        {
+            maceButton.gameObject.SetActive(false);
+            macePlaceholderText.gameObject.SetActive(true);
+            whipButton.gameObject.SetActive(false);
+            whipPlaceholderText.gameObject.SetActive(true);
+        }
+        else if (objectives.communicationRepaired == true)
+        {
+            maceButton.gameObject.SetActive(true);
+            macePlaceholderText.gameObject.SetActive(false);
+            whipButton.gameObject.SetActive(true);
+            whipPlaceholderText.gameObject.SetActive(false);
+        }
     }
 
     public void ObjectivesPage()
@@ -162,7 +193,15 @@ public class Shop : MonoBehaviour
         if(player.currentCurrency >= knifePrice && knifeBought == false)
         {
             player.currentCurrency -= knifePrice;
+
             knifeBought = true;
+            swordBought = false;
+            maceBought = false;
+            whipBought = false;
+
+            starterMelee.SetActive(false);
+            knifeMelee.SetActive(true);
+            swordMelee.SetActive(false);
 
         }
     }
@@ -171,7 +210,15 @@ public class Shop : MonoBehaviour
         if(player.currentCurrency >= swordPrice && swordBought == false)
         {
             player.currentCurrency -= swordPrice;
+
+            knifeBought = false;
             swordBought = true;
+            maceBought = false;
+            whipBought = false;
+
+            starterMelee.SetActive(false);
+            knifeMelee.SetActive(false);
+            swordMelee.SetActive(true);
         }
     }
     public void BuyMace()
@@ -179,7 +226,24 @@ public class Shop : MonoBehaviour
         if(player.currentCurrency >= macePrice && maceBought == false)
         {
             player.currentCurrency -= macePrice;
+
+            knifeBought = false;
+            swordBought = false;
             maceBought = true;
+            whipBought = false;
+        }
+    }
+
+    public void BuyWhip()
+    {
+        if(player.currentCurrency >= whipPrice && whipBought == false)
+        {
+            player.currentCurrency -= whipPrice;
+            
+            knifeBought = false;
+            swordBought = false;
+            maceBought = false;
+            whipBought = true;
         }
     }
 

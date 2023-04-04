@@ -94,9 +94,10 @@ public class EnemyProjectile : MonoBehaviour
 
         if(other.gameObject.tag == "Melee")
         {
-
-            speed *= -1;
-
+            if(gameObject.name != "StarterMelee")
+            {
+                speed *= -1;
+            }
         }
 
         if (other.CompareTag("Enemy"))

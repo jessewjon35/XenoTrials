@@ -7,21 +7,22 @@ public class Melee : MonoBehaviour
     public PlayerUI playerUi;
     public Player playerScript;
    
-    public GameObject starterMelee;
-    public GameObject currency;
+    //public GameObject starterMelee;
+    //public GameObject currency;
     
 
     public ParticleSystem enemyDeathEffect;
     
     public float timeBetweenMelee;
-    public float meleeStartTime;
+    public float disableMeleeTime;
+    
 
     public int meleeDamage = 25;
     public int currencyPerMelee = 15;
 
     public bool meleeAllowed;
    
-    public CircleCollider2D starterMeleeCol;
+    public CircleCollider2D meleeCol;
     
     
 
@@ -29,36 +30,35 @@ public class Melee : MonoBehaviour
     void Start()
     {
         GetComponent<CircleCollider2D>();
-        starterMeleeCol = GetComponent<CircleCollider2D>();
+        meleeCol = GetComponent<CircleCollider2D>();
         
 
         
        
-        starterMeleeCol.enabled = false;
+        meleeCol.enabled = false;
 
         
         meleeAllowed = true;
 
-        timeBetweenMelee = meleeStartTime;
+       
         
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        
+    }
 
-        if(timeBetweenMelee <= 0)
-        {
-            meleeAllowed = true;
-            starterMeleeCol.enabled = false;
-        }
-        else
-        {
-            meleeAllowed = false;
-            starterMeleeCol.enabled = true;
-            timeBetweenMelee -= Time.deltaTime;
-        }
+    IEnumerator MeleeReset()
+    {
+        meleeAllowed = false;
+        meleeCol.enabled = true;
+        yield return new WaitForSeconds(disableMeleeTime);
+        meleeCol.enabled = false;
+
+        yield return new WaitForSeconds(timeBetweenMelee);
+        meleeAllowed = true;
     }
 
     public void MeleeAttack()
@@ -67,10 +67,16 @@ public class Melee : MonoBehaviour
 
         if (meleeAllowed == true)
         {
-            timeBetweenMelee = meleeStartTime;                  
+
+            StartCoroutine(MeleeReset());
+            
+
         }
 
+
     }
+
+    
 
 
     /*private void OnDrawGizmosSelected()
